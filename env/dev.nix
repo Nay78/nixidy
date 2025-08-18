@@ -1,5 +1,5 @@
 {
-  nixidy.target.repository = "https://github.com/arnarg/nixidy-demo.git";
+  nixidy.target.repository = "https://github.com/Nay78/nixidy";
 
   # Set the target branch the rendered manifests for _this_
   # environment should be pushed to in the repository defined

@@ -10,6 +10,6 @@ spec:
   project: default
   source:
     path: ./manifests/dev/superset
-    repoURL: https://github.com/arnarg/nixidy-demo.git
+    repoURL: https://github.com/Nay78/nixidy
     targetRevision: main
   syncPolicy: {}
