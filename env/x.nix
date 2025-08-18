@@ -11,7 +11,7 @@
         repo = "https://apache.github.io/superset";
         chart = "superset";
         version = "0.15.0";
-        chartHash = "";
+        chartHash = "sha256-CX/cY/c5gmrcyE4jIjotLxThNi0Rt2Rb7gfakBqfmME=";
       };
 
       # Example values to pass to the Helm Chart.
