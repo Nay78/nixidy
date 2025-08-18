@@ -16,7 +16,7 @@
 
       # Example values to pass to the Helm Chart.
       values = {
-        SECRET_KEY = "superset";
+        SECRET_KEY = "mysecretkeywtf";
         # ingressClass.enabled = true;
       };
     };
