@@ -19,6 +19,27 @@
         configOverrides = {
           secret = "SECRET_KEY = 'IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu'";
         };
+        bootstrapScript = ''
+          #!/bin/bash
+
+          # Install system-level dependencies
+          apt-get update && apt-get install -y \
+            python3-dev \
+            default-libmysqlclient-dev \
+            build-essential \
+            pkg-config
+
+          # Install required Python packages
+          pip install \
+            authlib \
+            psycopg2-binary \
+            mysqlclient
+
+          # Create bootstrap file if it doesn't exist
+          if [ ! -f ~/bootstrap ]; then
+            echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap
+          fi
+        '';
         testing = "WHAT IS THIS";
         # ingressClass.enabled = true;
       };

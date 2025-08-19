@@ -23,7 +23,7 @@ spec:
         checksum/extraConfigs: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/extraSecretEnv: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/extraSecrets: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
-        checksum/superset_bootstrap.sh: dc9a47141051ced34960c313860a55e03eb48c1fa36a0ed25c03ad60cd3b5c48
+        checksum/superset_bootstrap.sh: ce928dffa0de10bbcc14896e3a9cb214157b426a1d5b5ae71bc816aa17acd8ed
         checksum/superset_config.py: f57653490c768512c783bbc7312302d5a18278e70d2099ee7d8dc756a627a4c4
       labels:
         app: superset-worker
