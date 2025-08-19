@@ -16,8 +16,8 @@
 
       # Example values to pass to the Helm Chart.
       values = {
-        secret = {
-          SECRET_KEY = "IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu";
+        configOverrides = {
+          secret = "SECRET_KEY = 'IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu'";
         };
         # ingressClass.enabled = true;
       };
