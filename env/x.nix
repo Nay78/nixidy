@@ -40,7 +40,15 @@
             if [ ! -f ~/bootstrap ]; then
               echo "Running Superset with uid {{ .Values.runAsUser }}" > ~/bootstrap
             fi'';
-        testing = "WHAT IS THIS";
+        service = {
+          type = "NodePort";
+          port = 8088;
+          targetPort = 8088;
+          nodePort = {
+            http = 30088;
+          };
+        };
+
         # ingressClass.enabled = true;
       };
     };
