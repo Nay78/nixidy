@@ -19,6 +19,7 @@
         configOverrides = {
           secret = "SECRET_KEY = 'IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu'";
         };
+        testing = "WHAT IS THIS";
         # ingressClass.enabled = true;
       };
     };
