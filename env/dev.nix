@@ -12,5 +12,6 @@
 
   imports = [
     ./x.nix
+    ./metallb.nix
   ];
 }
