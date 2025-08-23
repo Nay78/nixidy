@@ -1,5 +1,5 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+apiVersion: policy/v1
+kind: PodDisruptionBudget
 metadata:
   labels:
     app.kubernetes.io/component: primary
@@ -9,18 +9,11 @@ metadata:
     app.kubernetes.io/version: 17.6.0
     helm.sh/chart: postgresql-16.7.26
   name: n8n-postgresql
-  namespace: metallb
+  namespace: n8n
 spec:
-  egress:
-    - {}
-  ingress:
-    - ports:
-        - port: 5432
-  podSelector:
+  maxUnavailable: 1
+  selector:
     matchLabels:
       app.kubernetes.io/component: primary
       app.kubernetes.io/instance: n8n
       app.kubernetes.io/name: postgresql
-  policyTypes:
-    - Ingress
-    - Egress

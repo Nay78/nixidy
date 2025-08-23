@@ -2,8 +2,8 @@
 
 {
 
-  applications.metallb = {
-    namespace = "metallb";
+  applications.n8n = {
+    namespace = "n8n";
     createNamespace = true;
 
     helm.releases.n8n = {

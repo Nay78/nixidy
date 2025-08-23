@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/version: 1.107.4
     helm.sh/chart: n8n-1.14.3
   name: n8n
-  namespace: metallb
+  namespace: n8n
 spec:
   replicas: 1
   selector:

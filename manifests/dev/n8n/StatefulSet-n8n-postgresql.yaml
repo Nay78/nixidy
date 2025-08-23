@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/version: 17.6.0
     helm.sh/chart: postgresql-16.7.26
   name: n8n-postgresql
-  namespace: metallb
+  namespace: n8n
 spec:
   replicas: 1
   selector:
