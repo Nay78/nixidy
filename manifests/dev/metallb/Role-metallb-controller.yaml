@@ -2,11 +2,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
+    app.kubernetes.io/component: controller
     app.kubernetes.io/instance: metallb
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: metallb
-    app.kubernetes.io/version: v0.15.2
-    helm.sh/chart: metallb-0.15.2
+    app.kubernetes.io/version: 0.15.2
+    helm.sh/chart: metallb-6.4.22
   name: metallb-controller
   namespace: metallb
 rules:
@@ -58,12 +59,6 @@ rules:
   - apiGroups:
       - metallb.io
     resources:
-      - ipaddresspools/status
-    verbs:
-      - update
-  - apiGroups:
-      - metallb.io
-    resources:
       - bgppeers
     verbs:
       - get
@@ -98,3 +93,17 @@ rules:
       - get
       - list
       - watch
+  - apiGroups:
+      - metallb.io
+    resources:
+      - ipaddresspools
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - metallb.io
+    resources:
+      - ipaddresspools/status
+    verbs:
+      - update

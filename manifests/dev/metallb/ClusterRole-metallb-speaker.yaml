@@ -2,13 +2,21 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
+    app.kubernetes.io/component: speaker
     app.kubernetes.io/instance: metallb
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: metallb
-    app.kubernetes.io/version: v0.15.2
-    helm.sh/chart: metallb-0.15.2
-  name: metallb:speaker
+    app.kubernetes.io/version: 0.15.2
+    helm.sh/chart: metallb-6.4.22
+  name: metallb-speaker
 rules:
+  - apiGroups:
+      - metallb.io
+    resources:
+      - servicel2statuses
+      - servicel2statuses/status
+    verbs:
+      - '*'
   - apiGroups:
       - ""
     resources:
@@ -21,14 +29,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - discovery.k8s.io
-    resources:
-      - endpointslices
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
       - ""
     resources:
       - events
@@ -36,9 +36,10 @@ rules:
       - create
       - patch
   - apiGroups:
-      - metallb.io
+      - discovery.k8s.io
     resources:
-      - servicel2statuses
-      - servicel2statuses/status
+      - endpointslices
     verbs:
-      - '*'
+      - get
+      - list
+      - watch

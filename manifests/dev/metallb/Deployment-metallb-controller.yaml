@@ -6,11 +6,13 @@ metadata:
     app.kubernetes.io/instance: metallb
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: metallb
-    app.kubernetes.io/version: v0.15.2
-    helm.sh/chart: metallb-0.15.2
+    app.kubernetes.io/version: 0.15.2
+    helm.sh/chart: metallb-6.4.22
   name: metallb-controller
   namespace: metallb
 spec:
+  replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/component: controller
@@ -23,34 +25,48 @@ spec:
       labels:
         app.kubernetes.io/component: controller
         app.kubernetes.io/instance: metallb
+        app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: metallb
+        app.kubernetes.io/version: 0.15.2
+        helm.sh/chart: metallb-6.4.22
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/component: controller
+                    app.kubernetes.io/instance: metallb
+                    app.kubernetes.io/name: metallb
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      automountServiceAccountToken: true
       containers:
         - args:
             - --port=7472
+            - --cert-service-name=metallb-webhook-service
             - --log-level=info
-            - --tls-min-version=VersionTLS12
+            - --webhook-mode=enabled
           env:
             - name: METALLB_ML_SECRET_NAME
               value: metallb-memberlist
             - name: METALLB_DEPLOYMENT
               value: metallb-controller
-            - name: METALLB_BGP_TYPE
-              value: frr
-          image: quay.io/metallb/controller:v0.15.2
+          image: docker.io/bitnami/metallb-controller:0.15.2-debian-12-r7
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
-            httpGet:
-              path: /metrics
-              port: monitoring
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
+            tcpSocket:
+              port: metrics
             timeoutSeconds: 1
-          name: controller
+          name: metallb-controller
           ports:
             - containerPort: 7472
-              name: monitoring
+              name: metrics
             - containerPort: 9443
               name: webhook-server
               protocol: TCP
@@ -58,17 +74,32 @@ spec:
             failureThreshold: 3
             httpGet:
               path: /metrics
-              port: monitoring
+              port: metrics
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 150m
+              ephemeral-storage: 2Gi
+              memory: 192Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 50Mi
+              memory: 128Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
           volumeMounts:
             - mountPath: /tmp/k8s-webhook-server/serving-certs
               name: cert
@@ -76,11 +107,11 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
-        fsGroup: 65534
-        runAsNonRoot: true
-        runAsUser: 65534
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
       serviceAccountName: metallb-controller
-      terminationGracePeriodSeconds: 0
       volumes:
         - name: cert
           secret:

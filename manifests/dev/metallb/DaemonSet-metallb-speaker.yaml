@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/instance: metallb
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: metallb
-    app.kubernetes.io/version: v0.15.2
-    helm.sh/chart: metallb-0.15.2
+    app.kubernetes.io/version: 0.15.2
+    helm.sh/chart: metallb-6.4.22
   name: metallb-speaker
   namespace: metallb
 spec:
@@ -21,8 +21,23 @@ spec:
       labels:
         app.kubernetes.io/component: speaker
         app.kubernetes.io/instance: metallb
+        app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: metallb
+        app.kubernetes.io/version: 0.15.2
+        helm.sh/chart: metallb-6.4.22
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/component: speaker
+                    app.kubernetes.io/instance: metallb
+                    app.kubernetes.io/name: metallb
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      automountServiceAccountToken: true
       containers:
         - args:
             - --port=7472
@@ -32,6 +47,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
+            - name: METALLB_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: METALLB_HOST
               valueFrom:
                 fieldRef:
@@ -41,203 +60,81 @@ spec:
                 fieldRef:
                   fieldPath: status.podIP
             - name: METALLB_ML_LABELS
-              value: app.kubernetes.io/name=metallb,app.kubernetes.io/component=speaker
-            - name: METALLB_ML_BIND_PORT
-              value: "7946"
-            - name: METALLB_ML_SECRET_KEY_PATH
-              value: /etc/ml_secret_key
-            - name: FRR_CONFIG_FILE
-              value: /etc/frr_reloader/frr.conf
-            - name: FRR_RELOADER_PID_FILE
-              value: /etc/frr_reloader/reloader.pid
-            - name: METALLB_BGP_TYPE
-              value: frr
-            - name: METALLB_POD_NAME
+              value: app.kubernetes.io/name=metallb,app.kubernetes.io/instance=metallb,app.kubernetes.io/component=speaker
+            - name: METALLB_ML_NAMESPACE
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.name
-          image: quay.io/metallb/speaker:v0.15.2
+                  fieldPath: metadata.namespace
+            - name: METALLB_ML_SECRET_KEY_PATH
+              value: /etc/memberlist
+          image: docker.io/bitnami/metallb-speaker:0.15.2-debian-12-r6
+          imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
-            httpGet:
-              path: /metrics
-              port: monitoring
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
+            tcpSocket:
+              port: metrics
             timeoutSeconds: 1
-          name: speaker
+          name: metallb-speaker
           ports:
             - containerPort: 7472
-              name: monitoring
-            - containerPort: 7946
-              name: memberlist-tcp
-              protocol: TCP
-            - containerPort: 7946
-              name: memberlist-udp
-              protocol: UDP
+              name: metrics
           readinessProbe:
             failureThreshold: 3
             httpGet:
               path: /metrics
-              port: monitoring
+              port: metrics
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 150m
+              ephemeral-storage: 2Gi
+              memory: 192Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 50Mi
+              memory: 128Mi
           securityContext:
             allowPrivilegeEscalation: false
-            capabilities:
-              add:
-                - NET_RAW
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-          volumeMounts:
-            - mountPath: /etc/ml_secret_key
-              name: memberlist
-            - mountPath: /etc/frr_reloader
-              name: reloader
-            - mountPath: /etc/metallb
-              name: metallb-excludel2
-        - command:
-            - /bin/sh
-            - -c
-            - |
-              /sbin/tini -- /usr/lib/frr/docker-start &
-              attempts=0
-              until [[ -f /etc/frr/frr.log || $attempts -eq 60 ]]; do
-                sleep 1
-                attempts=$(( $attempts + 1 ))
-              done
-              tail -f /etc/frr/frr.log
-          env:
-            - name: TINI_SUBREAPER
-              value: "true"
-          image: quay.io/frrouting/frr:9.1.0
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: livez
-              port: 7473
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
-          name: frr
-          securityContext:
             capabilities:
               add:
                 - NET_ADMIN
                 - NET_RAW
                 - SYS_ADMIN
-                - NET_BIND_SERVICE
-          startupProbe:
-            failureThreshold: 30
-            httpGet:
-              path: /livez
-              port: 7473
-            periodSeconds: 5
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsUser: 0
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
           volumeMounts:
-            - mountPath: /var/run/frr
-              name: frr-sockets
-            - mountPath: /etc/frr
-              name: frr-conf
-        - command:
-            - /etc/frr_reloader/frr-reloader.sh
-          image: quay.io/frrouting/frr:9.1.0
-          name: reloader
-          volumeMounts:
-            - mountPath: /var/run/frr
-              name: frr-sockets
-            - mountPath: /etc/frr
-              name: frr-conf
-            - mountPath: /etc/frr_reloader
-              name: reloader
-        - args:
-            - --metrics-port=7473
-          command:
-            - /etc/frr_metrics/frr-metrics
-          env:
-            - name: VTYSH_HISTFILE
-              value: /dev/null
-          image: quay.io/frrouting/frr:9.1.0
-          name: frr-metrics
-          ports:
-            - containerPort: 7473
-              name: monitoring
-          volumeMounts:
-            - mountPath: /var/run/frr
-              name: frr-sockets
-            - mountPath: /etc/frr
-              name: frr-conf
-            - mountPath: /etc/frr_metrics
-              name: metrics
+            - mountPath: /etc/memberlist
+              name: memberlist-secret
+              readOnly: true
       hostNetwork: true
-      initContainers:
-        - command:
-            - /bin/sh
-            - -c
-            - cp -rLf /tmp/frr/* /etc/frr/
-          image: quay.io/frrouting/frr:9.1.0
-          name: cp-frr-files
-          securityContext:
-            runAsGroup: 101
-            runAsUser: 100
-          volumeMounts:
-            - mountPath: /tmp/frr
-              name: frr-startup
-            - mountPath: /etc/frr
-              name: frr-conf
-        - command:
-            - /cp-tool
-            - /frr-reloader.sh
-            - /etc/frr_reloader/frr-reloader.sh
-          image: quay.io/metallb/speaker:v0.15.2
-          name: cp-reloader
-          volumeMounts:
-            - mountPath: /etc/frr_reloader
-              name: reloader
-        - command:
-            - /cp-tool
-            - /frr-metrics
-            - /etc/frr_metrics/frr-metrics
-          image: quay.io/metallb/speaker:v0.15.2
-          name: cp-metrics
-          volumeMounts:
-            - mountPath: /etc/frr_metrics
-              name: metrics
       nodeSelector:
         kubernetes.io/os: linux
+      securityContext:
+        fsGroup: 0
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
       serviceAccountName: metallb-speaker
-      shareProcessNamespace: true
-      terminationGracePeriodSeconds: 0
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/master
-          operator: Exists
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
-          operator: Exists
+      terminationGracePeriodSeconds: 2
       volumes:
-        - name: memberlist
+        - name: memberlist-secret
           secret:
-            defaultMode: 420
+            defaultMode: 292
+            items:
+              - key: secretkey
+                path: secretkey
             secretName: metallb-memberlist
-        - configMap:
-            defaultMode: 256
-            name: metallb-excludel2
-          name: metallb-excludel2
-        - emptyDir: {}
-          name: frr-sockets
-        - configMap:
-            name: metallb-frr-startup
-          name: frr-startup
-        - emptyDir: {}
-          name: frr-conf
-        - emptyDir: {}
-          name: reloader
-        - emptyDir: {}
-          name: metrics
   updateStrategy:
     type: RollingUpdate

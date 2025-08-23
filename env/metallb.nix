@@ -17,7 +17,19 @@
       };
 
       # Example values to pass to the Helm Chart.
-      values = { };
+      values = {
+        configInline = {
+          address-pools = [
+            {
+              name = "default";
+              protocol = "layer2";
+              # addresses = [ "100.50.152.24-100.115.12.114" ];
+              addresses = [ "192.168.1.240-192.168.1.250" ];
+            }
+          ];
+        };
+
+      };
     };
   };
 }
