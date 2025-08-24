@@ -14,6 +14,7 @@
     ./x.nix
     # ./metallb.nix
     ./metallb-bitnami.nix
-    ./n8n.nix
+    # ./n8n.nix
+    ./n8n2.nix
   ];
 }
