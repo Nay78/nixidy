@@ -35,6 +35,7 @@
               authlib \
               psycopg2-binary \
               mysqlclient \
+              pymssql \
 
             # Create bootstrap file if it doesn't exist
             if [ ! -f ~/bootstrap ]; then
