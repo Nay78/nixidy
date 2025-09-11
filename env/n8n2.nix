@@ -35,5 +35,36 @@
       #
       # };
     };
+
+    # environment.variables.MY_SECRET = secrets.my-secret-key;
+    # resources = {
+    #   services.x.spec = {
+    #     apiVersion = "external-secrets.io/v1";
+    #     kind = "SecretStore";
+    #     metadata = {
+    #       name = "test";
+    #     };
+    #     spec = {
+    #       provider = {
+    #         aws = {
+    #           service = "SecretsManager";
+    #           region = "us-east-1";
+    #           auth = {
+    #             secretRef = {
+    #               accessKeyIDSecretRef = {
+    #                 name = "awssm-secret";
+    #                 key = "access-key";
+    #               };
+    #               secretAccessKeySecretRef = {
+    #                 name = "awssm-secret";
+    #                 key = "secret-access-key";
+    #               };
+    #             };
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
   };
 }

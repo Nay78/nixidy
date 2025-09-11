@@ -16,9 +16,10 @@
 
       # Example values to pass to the Helm Chart.
       values = {
-        configOverrides = {
-          secret = "SECRET_KEY = 'IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu'";
-        };
+        # configOverrides = {
+        #   # secret = "SECRET_KEY = 'IGMETYkv0SY7B8Kocw5xtm93bM6lhXxIyaQ9uGzALn+nhm0VFyvm2mBu'";
+        #   secret = "SECRET_KEY = env('SECRET_KEY')";
+        # };
         bootstrapScript = ''
           bootstrapScript: |
             #!/bin/bash
@@ -49,9 +50,59 @@
             http = 30088;
           };
         };
+        # extraSecretEnv = {
+        #   SUPERSET_SECRET_KEY = "helloworld";
+        # };
+        secretEnv = {
+          create = false;
+        };
+        # extraEnv = {
+        #   key = "helloworlde";
+        #
+        # };
+        # extraEnv = [
+        #   {
+        #     name = "SECRET_KEY";
+        #     valueFrom.secretKeyRef = {
+        #       name = "superset-secret";
+        #       key = "SECRET_KEY";
+        #     };
+        #   }
+        # ];
 
         # ingressClass.enabled = true;
       };
     };
+    # resources = [
+    #   {
+    #     apiVersion = "v1";
+    #     kind = "Secret";
+    #     metadata = {
+    #       name = "superset-env";
+    #       namespace = "superset";
+    #       labels = {
+    #         app = "superset";
+    #         chart = "superset-0.15.0";
+    #         heritage = "Helm";
+    #         release = "superset";
+    #       };
+    #     };
+    #     stringData = {
+    #       DB_HOST = "superset-postgresql";
+    #       DB_NAME = "superset";
+    #       DB_PASS = "superset";
+    #       DB_PORT = "5432";
+    #       DB_USER = "superset";
+    #       REDIS_CELERY_DB = "0";
+    #       REDIS_DB = "1";
+    #       REDIS_HOST = "superset-redis-headless";
+    #       REDIS_PORT = "6379";
+    #       REDIS_PROTO = "redis";
+    #       REDIS_USER = "";
+    #     };
+    #     type = "Opaque";
+    #   }
+    # ];
+
   };
 }

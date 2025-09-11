@@ -17,5 +17,6 @@
     # ./n8n.nix
     ./n8n2.nix
     ./sealed-secrets.nix
+    ./temporal.nix
   ];
 }

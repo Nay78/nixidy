@@ -17,14 +17,14 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configOverrides: 374f6ae337f58b0fd2acd61c95bb6cfc187c1dad030120b02386cd735026b18f
+        checksum/configOverrides: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/configOverridesFiles: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/connections: 2d41a2c51ec2fc809be84fc0ea0e603c946d529b4a0e43f7257e617909561a75
         checksum/extraConfigs: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/extraSecretEnv: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/extraSecrets: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/superset_bootstrap.sh: 0d52e3d9174281b059ca768051bb4a84e415e610b416e1466fdb394112387340
-        checksum/superset_config.py: f57653490c768512c783bbc7312302d5a18278e70d2099ee7d8dc756a627a4c4
+        checksum/superset_config.py: 645f8b44e6f772a77ab5910009c2790dc7fa8a372bb685e15183e1b2b88f2ea1
         checksum/superset_init.sh: e6b1e8eac1f7a79a07a6c72a0e2ee6e09654eeb439c6bbe61bfd676917c41e02
       labels:
         app: superset

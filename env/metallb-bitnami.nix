@@ -36,9 +36,7 @@
                 # will all share the same settings. Each range can be either a
                 # CIDR prefix, or an explicit start-end range of IPs.
                 addresses = [
-                  "192.168.10.0/24"
-                  "192.168.9.1-192.168.9.5"
-                  "fc00:f853:0ccd:e799::/124"
+                  "192.168.1.240-192.168.1.255"
                 ];
               };
             }
