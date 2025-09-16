@@ -32,8 +32,11 @@
       chart = lib.helm.downloadHelmChart {
         repo = "oci://8gears.container-registry.com/library";
         chart = "n8n";
-        version = "1.0.10";
+        version = "1.0.14";
         chartHash = "sha256-0rkHS4WGL8AKp1VcU2AcWNwpuOlv5kuVT6pTEbHo9LY=";
+      };
+      values = {
+        N8N_RUNNERS_ENABLED = true;
       };
 
       # Example values to pass to the Helm Chart.
