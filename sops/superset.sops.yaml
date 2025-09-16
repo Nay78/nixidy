@@ -10,7 +10,8 @@ metadata:
     namespace: superset
 spec:
     secretTemplates:
-        stringData:
+        - name: superset-env
+          stringData:
             DB_HOST: ENC[AES256_GCM,data:srRVykQHsWRzKNJhEcTbit2YbA==,iv:OKbhEp7tVxxc3x1o21//K2nPPQRMXuSU3V3w6t3HB5Y=,tag:9A4osXRCOjhyJEIE+eDYHA==,type:str]
             DB_NAME: ENC[AES256_GCM,data:9zRLMvJpBKM=,iv:UtCuZ/QyECu0P2n/B2VU8GTHtnWI0bhAAPzwaDlo5HY=,tag:dNZ/KXM7HCUom0Rrb6NVyw==,type:str]
             DB_PASS: ENC[AES256_GCM,data:nqNoE9w1BAM=,iv:Is8YwjbI+fUhrezB5iefax/rVebbtex7GwzHYmDqe0Q=,tag:K+8jHXo2HpBsO9nWD7TJJQ==,type:str]
@@ -44,7 +45,7 @@ sops:
             SmkrRGEzTFFQTWV3RDJCVjVXdGNuSXcKlJXtt6aKFv/RzoWP6iXQ5ukqNm6iBIq1
             asYKJR59RTD0C98bWnXyYHFT8NeCWr8dMrCu9fJz/BK83YxeHm3uXg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-16T18:54:21Z"
-    mac: ENC[AES256_GCM,data:X2l92EFVBbmF/82YzPwCQ50gqk8/lSFWb+Qp3/D4wIrI8DPsgw+cjWdiAtkCP1cBM+XhjjsYZJDnqCD074W361AiRBCXgx6jsmSkaJh7r56Cn7Qb82FdzMz0jmVut+wZItdjDQV8OdPPVH3xyMseWvOHPsGwd04RVaQd7DVXQ5E=,iv:iVbREq7FC2JKPETUxCZtFNojBSmPFxjW20qeYY/ekjU=,tag:2B4an2LVzEgDuVCaSQTqmA==,type:str]
+    lastmodified: "2025-09-16T19:35:57Z"
+    mac: ENC[AES256_GCM,data:mFB7f99kOhU3NhWTIJf096DBdGVUNqcQ/JKjGV96oczPr8qhTlI10Vf7oaV95R0eOGYb8p/mD//KLF4VsVDwy+zJnkIW0UaH4InDx+3t+8rHhtQ+meUq41qg12ndGpIU+8Lm73bN96xA6Vn/TxURioH7CajVM5MKzQqCFuxXl1A=,iv:gVZD/jQx/M1pcECcG6eaD1uraOKQwev1XuMmhMJhUtY=,tag:DY3vUkd6BFhE+3AcjFrlRQ==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
