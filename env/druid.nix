@@ -3,18 +3,24 @@
   applications.druid = {
     namespace = "druid";
     createNamespace = true;
-
-    # helm.releases.druid = {
-    #   #helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
-    #   chart = lib.helm.downloadHelmChart {
-    #     repo = "https://wiremind.github.io/wiremind-helm-charts";
-    #     chart = "druid";
-    #     version = "1.22.1";
-    #     chartHash = "sha256-zXXHMny0h6hd4563oho5gtTvDb/QnTATtRs0XSlX6g4=";
-    #   };
-    #
-    #   values = { };
-    # };
+    yamls = [
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: druid
+          namespace: druid
+          annotations:
+            tailscale.com/expose: "true"
+        spec:
+          selector:
+            app: druid
+          ports:
+            - protocol: TCP
+              port: 8888
+              targetPort: 8888
+      ''
+    ];
 
     helm.releases.druid = {
       #helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
@@ -26,8 +32,6 @@
       };
 
       values = {
-
-        "tailscale.com/expose" = "true";
         service = {
           type = "NodePort";
           port = 8888;
@@ -35,6 +39,9 @@
           nodePort = {
             http = 8888;
           };
+        };
+        annotations = {
+          "tailscale.com/expose" = "true";
         };
       };
     };
