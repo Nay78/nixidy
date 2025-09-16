@@ -25,7 +25,6 @@ spec:
             REDIS_USER: ""
             REDIS_PASS: ENC[AES256_GCM,data:3C5oWyex3/zaXYNzj6pWhw==,iv:9rmenm3tp6T/LYbbqnHr8CliHj9SUVoeFeEX3ElqeE8=,tag:P7E8q2vXfncQn4KKEsifvQ==,type:str]
             SUPERSET_SECRET_KEY: ENC[AES256_GCM,data:OcaGTcvqyPHF582smr6lgbOMg8S5dhY/3aE03RaLv5fnJpE7lepm8rFgAhsfxwYcHn/btHJCxK9xlCHmH6Q=,iv:ZBm5HCSPjrhIL9EY6QSQXlwRqxEMCXlWvBiEZe36CPA=,tag:tvFrFkxtrO/WxkCaTmDRrA==,type:str]
-type: Opaque
 sops:
     age:
         - recipient: age1yuq8mumrg7yv2nxvfj3kzh6hxfjdl5zmsxda8pl5tjlvclmzjuns066uy2
@@ -46,7 +45,7 @@ sops:
             SmkrRGEzTFFQTWV3RDJCVjVXdGNuSXcKlJXtt6aKFv/RzoWP6iXQ5ukqNm6iBIq1
             asYKJR59RTD0C98bWnXyYHFT8NeCWr8dMrCu9fJz/BK83YxeHm3uXg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-16T19:48:42Z"
-    mac: ENC[AES256_GCM,data:PsR97X+Qm7vAo1XeWlEgQPL+7MbDmM6FQackWWtUdQGYyOH9hnSXXd9VAv29NUMBQJYbE5BUYLznL+IUek5hQs8z31V3tsNt2yLoxrZ410IqQUzMMQaLvW19CyNorW1q8khulG3IM345eh3Mxg33R0mnM1cFRfMmO80RVBnf/XA=,iv:nRpqPefkdIzA1zFi2Yv0j4XhhWw10/T6Mb6BV1xjPj4=,tag:eWU0LGnubg57bHW9ya+BoA==,type:str]
+    lastmodified: "2025-09-16T20:51:10Z"
+    mac: ENC[AES256_GCM,data:8BmUVbSAWN5NLnNSZGq+y81t/h+s4zt5EPdRoPbycgFPfHvtBTjYzAZXWQlueiWWkqZ4qam0dMxV6yRGYGH3WKaYo3aaUWECw6teZZnVgVhzp2MRx1vyeKsC4Ifxgsux3vyLu4Pt7agBbfxk5y2bYnLlo8/7LXDFprLnHV0S0QY=,iv:Z27zTTSx3pbuCsrIphfgKm2wqoazf2RE0Vv4C4Vr8JY=,tag:UkrQ9P5bLMHYFpnWlO9MYw==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
