@@ -5,6 +5,25 @@
   applications.n8n = {
     namespace = "n8n";
     createNamespace = true;
+    yamls = [
+      # (builtins.readFile ../sops/superset.sops.yaml)
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: n8n
+          namespace: n8n
+          annotations:
+            tailscale.com/expose: "true"
+        spec:
+          selector:
+            app: n8n
+          # ports:
+          #   - protocol: TCP
+          #     port: 8888
+          #     targetPort: 8888
+      ''
+    ];
 
     helm.releases.n8n = {
       # Use `lib.helm.downloadHelmChart` to fetch
