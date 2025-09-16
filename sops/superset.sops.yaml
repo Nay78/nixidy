@@ -14,7 +14,8 @@ spec:
           stringData:
             DB_HOST: ENC[AES256_GCM,data:srRVykQHsWRzKNJhEcTbit2YbA==,iv:OKbhEp7tVxxc3x1o21//K2nPPQRMXuSU3V3w6t3HB5Y=,tag:9A4osXRCOjhyJEIE+eDYHA==,type:str]
             DB_NAME: ENC[AES256_GCM,data:9zRLMvJpBKM=,iv:UtCuZ/QyECu0P2n/B2VU8GTHtnWI0bhAAPzwaDlo5HY=,tag:dNZ/KXM7HCUom0Rrb6NVyw==,type:str]
-            DB_PASS: ENC[AES256_GCM,data:68v34dX2zk+Jrkz4qRSO/g==,iv:Td5O6jmozdP2H4Alc3oT1jUnJILgMcG1JWGC1zRjtvw=,tag:tAT9FVSycthrKPApAXb7zw==,type:str]
+            #ENC[AES256_GCM,data:+2NHPtzxM1LTkOgUgb4rZQPc1mTZ47SGSg==,iv:wPIZ8b73u9uUK1yn7QvsRmQCjXUjZCxbQG+wx1MGXRw=,tag:VUt1eY3csxOa98ltbCn+ZQ==,type:comment]
+            DB_PASS: ENC[AES256_GCM,data:YmFDGYvlDwk=,iv:lNEWSRNJrs6Xw+94GQ4jwWv/VS5/hzu8MMVY1/TZMVw=,tag:qdDqOniojlYw1orPpHhJiA==,type:str]
             DB_PORT: ENC[AES256_GCM,data:RhA84g==,iv:Z0wDGAGHMGvR3RQ8ExOA2618VFqw+LqX7YfJ/oxJZxI=,tag:zZ3jdBK/Q2eTMn1fl5HApw==,type:str]
             DB_USER: ENC[AES256_GCM,data:XaUqHGI2oek=,iv:SxB6HPpgWWR+j3t0OQH7EWsuBllw9rfvr1YVqqHZBGY=,tag:GrqpG0jW3q4Ncd4PYFocPQ==,type:str]
             REDIS_CELERY_DB: ENC[AES256_GCM,data:pQ==,iv:wVUbuptISU0RjOBm7LgatYrIG4OlfW1qk6mmuNaJ5uU=,tag:fVwq0vJXl6zirXnSJxJ/QA==,type:str]
@@ -23,7 +24,7 @@ spec:
             REDIS_PORT: ENC[AES256_GCM,data:JSdMpg==,iv:mCDKolLWnYyekPPnFgLc8ITlV7GLStYkSZwpVGmLr8U=,tag:xQXBvVn0m2jm1jucfP3xSw==,type:str]
             REDIS_PROTO: ENC[AES256_GCM,data:hUYz3gQ=,iv:KSJqPPJcx7mlSTs82sBWqzliPr+tc2hPpK+jMonaqoo=,tag:kg45sxXYp9BznyqYJtQUag==,type:str]
             REDIS_USER: ""
-            REDIS_PASS: ENC[AES256_GCM,data:3C5oWyex3/zaXYNzj6pWhw==,iv:9rmenm3tp6T/LYbbqnHr8CliHj9SUVoeFeEX3ElqeE8=,tag:P7E8q2vXfncQn4KKEsifvQ==,type:str]
+            #ENC[AES256_GCM,data:p4PINpESEbwliIyo3yrf4nMDbs4IEI21RIMpdw==,iv:ndwsx4xQWvRUaQNCQloVqi1lTFODg9lJ/BX3886RWfY=,tag:k9aubnpAeCkoUQWVp+avhw==,type:comment]
             SUPERSET_SECRET_KEY: ENC[AES256_GCM,data:OcaGTcvqyPHF582smr6lgbOMg8S5dhY/3aE03RaLv5fnJpE7lepm8rFgAhsfxwYcHn/btHJCxK9xlCHmH6Q=,iv:ZBm5HCSPjrhIL9EY6QSQXlwRqxEMCXlWvBiEZe36CPA=,tag:tvFrFkxtrO/WxkCaTmDRrA==,type:str]
 sops:
     age:
@@ -45,7 +46,7 @@ sops:
             SmkrRGEzTFFQTWV3RDJCVjVXdGNuSXcKlJXtt6aKFv/RzoWP6iXQ5ukqNm6iBIq1
             asYKJR59RTD0C98bWnXyYHFT8NeCWr8dMrCu9fJz/BK83YxeHm3uXg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-16T20:51:10Z"
-    mac: ENC[AES256_GCM,data:8BmUVbSAWN5NLnNSZGq+y81t/h+s4zt5EPdRoPbycgFPfHvtBTjYzAZXWQlueiWWkqZ4qam0dMxV6yRGYGH3WKaYo3aaUWECw6teZZnVgVhzp2MRx1vyeKsC4Ifxgsux3vyLu4Pt7agBbfxk5y2bYnLlo8/7LXDFprLnHV0S0QY=,iv:Z27zTTSx3pbuCsrIphfgKm2wqoazf2RE0Vv4C4Vr8JY=,tag:UkrQ9P5bLMHYFpnWlO9MYw==,type:str]
+    lastmodified: "2025-09-16T21:07:45Z"
+    mac: ENC[AES256_GCM,data:z2/eZ+xwW9A2DvKh/2QyFanq1ZbUeJdNxHWsjkLehw9gMmBlwZ3pgX5oMy5GL8ArlCzJPr3c0pjkNlWmJbpt5oA9eA6swYU1UEdXqNMeDm0pz2DNaJ88WlXCHXkP6+4G9qCAT1C22W2VsljGbhXQ+XN67ChIdpIDT7ADKwZTFws=,iv:Cf7Lu7uwWVMNpFxI7nVe5wUIdCGRK7NjYqKj34yX2SY=,tag:EnAqgnMOVUwOtA76e8nBow==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
