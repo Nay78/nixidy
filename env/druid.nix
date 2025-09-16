@@ -25,7 +25,16 @@
         chartHash = "sha256-FcE6hnPH/eVpc4uuvvKNp3KTNaBgQs9REVWtpfM6vB4=";
       };
 
-      values = { };
+      values = {
+        service = {
+          type = "NodePort";
+          port = 8088;
+          targetPort = 8088;
+          nodePort = {
+            http = 8090;
+          };
+        };
+      };
     };
 
   };
