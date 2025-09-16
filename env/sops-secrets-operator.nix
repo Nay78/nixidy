@@ -14,6 +14,12 @@
       };
 
       values = {
+        extraEnv = [
+          {
+            name = "SOPS_AGE_KEY_FILE";
+            value = "/etc/sops-age-private-key/kube_age"; # <-- The path to the file inside the mounted directory
+          }
+        ];
         secretsAsFiles = [
           {
             mountPath = "/etc/sops-age-private-key";
