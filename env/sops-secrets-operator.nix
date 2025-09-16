@@ -1,17 +1,16 @@
 { lib, ... }:
 {
-  applications.tailscale = {
-    namespace = "tailscale";
+  applications.sops = {
+    namespace = "sops";
     createNamespace = true;
-    yamls = [ (builtins.readFile ../sops/tailscale.sops.yaml) ];
 
-    helm.releases.tailscale = {
+    helm.releases.sops = {
       #helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
       chart = lib.helm.downloadHelmChart {
-        repo = "https://pkgs.tailscale.com/helmcharts";
-        chart = "tailscale-operator";
-        version = "1.86.5";
-        chartHash = "sha256-G7W/dC6eSp/bsGl2apUwWGXmYrYk7iWNhIiJki4/nYI=";
+        repo = "https://isindir.github.io/sops-secrets-operator/";
+        chart = "sops-secrets-operator";
+        version = "0.23.0";
+        chartHash = "";
       };
 
       values = {
