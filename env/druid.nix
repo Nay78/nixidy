@@ -28,10 +28,10 @@
       values = {
         service = {
           type = "NodePort";
-          # port = 8088;
+          port = 8888;
           targetPort = 8888;
           nodePort = {
-            http = 8090;
+            http = 8888;
           };
         };
       };
