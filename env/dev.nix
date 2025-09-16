@@ -11,7 +11,7 @@
   nixidy.target.rootPath = "./manifests/dev";
 
   imports = [
-    ./superset.nix
+    # ./superset.nix
     # ./metallb.nix
     ./metallb-bitnami.nix
     # ./n8n.nix

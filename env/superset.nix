@@ -75,36 +75,6 @@
         # ingressClass.enabled = true;
       };
     };
-    # resources = [
-    #   {
-    #     apiVersion = "v1";
-    #     kind = "Secret";
-    #     metadata = {
-    #       name = "superset-env";
-    #       namespace = "superset";
-    #       labels = {
-    #         app = "superset";
-    #         chart = "superset-0.15.0";
-    #         heritage = "Helm";
-    #         release = "superset";
-    #       };
-    #     };
-    #     stringData = {
-    #       DB_HOST = "superset-postgresql";
-    #       DB_NAME = "superset";
-    #       DB_PASS = "superset";
-    #       DB_PORT = "5432";
-    #       DB_USER = "superset";
-    #       REDIS_CELERY_DB = "0";
-    #       REDIS_DB = "1";
-    #       REDIS_HOST = "superset-redis-headless";
-    #       REDIS_PORT = "6379";
-    #       REDIS_PROTO = "redis";
-    #       REDIS_USER = "";
-    #     };
-    #     type = "Opaque";
-    #   }
-    # ];
 
   };
 }
