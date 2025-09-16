@@ -1,5 +1,8 @@
 { lib, ... }:
 {
+
+  #
+
   applications.superset = {
     namespace = "superset";
     createNamespace = true;
@@ -57,6 +60,9 @@
         # };
         secretEnv = {
           create = false;
+        };
+        annotations = {
+          "tailscale.com/expose" = "true";
         };
         # extraEnv = {
         #   key = "helloworlde";
