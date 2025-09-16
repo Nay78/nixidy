@@ -33,7 +33,7 @@
         repo = "oci://8gears.container-registry.com/library";
         chart = "n8n";
         version = "1.0.14";
-        chartHash = "sha256-0rkHS4WGL8AKp1VcU2AcWNwpuOlv5kuVT6pTEbHo9LY=";
+        chartHash = "sha256-pd5mYvXcMy8g4H9wvje4URSlSpl6S8Ec8IyCS3YxWkE=";
       };
       values = {
         N8N_RUNNERS_ENABLED = true;
