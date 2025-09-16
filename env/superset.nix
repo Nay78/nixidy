@@ -4,6 +4,8 @@
     namespace = "superset";
     createNamespace = true;
 
+    yamls = [ (builtins.readFile ../sops/superset.sops.yaml) ];
+
     helm.releases.superset = {
       # Use `lib.helm.downloadHelmChart` to fetch
       # the Helm Chart to use.

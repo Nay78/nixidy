@@ -16,7 +16,8 @@
     ./metallb-bitnami.nix
     # ./n8n.nix
     ./n8n2.nix
-    ./sealed-secrets.nix
+    # ./sealed-secrets.nix
+    ./sops-secrets-operator.nix
     # ./temporal.nix
     ./druid.nix
     ./tailscale.nix
