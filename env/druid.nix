@@ -29,7 +29,7 @@
         service = {
           type = "NodePort";
           # port = 8088;
-          targetPort = 8088;
+          targetPort = 8888;
           nodePort = {
             http = 8090;
           };
