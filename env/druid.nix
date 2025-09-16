@@ -40,9 +40,9 @@
             http = 8888;
           };
         };
-        annotations = {
-          "tailscale.com/expose" = "true";
-        };
+        # annotations = {
+        #   "tailscale.com/expose" = "true";
+        # };
       };
     };
 
