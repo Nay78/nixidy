@@ -26,6 +26,8 @@
       };
 
       values = {
+
+        "tailscale.com/expose" = "true";
         service = {
           type = "NodePort";
           port = 8888;
