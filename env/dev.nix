@@ -19,5 +19,6 @@
     ./sealed-secrets.nix
     # ./temporal.nix
     ./druid.nix
+    ./tailscale.nix
   ];
 }
