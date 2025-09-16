@@ -1,0 +1,24 @@
+apiVersion: v1
+data:
+  DRUID_USE_CONTAINER_IP: "true"
+  druid_emitter: noop
+  druid_emitter_http_recipientBaseUrl: http://druid_exporter_url:druid_exporter_port/druid
+  druid_emitter_logging_logLevel: debug
+  druid_extensions_loadList: '["druid-histogram", "druid-datasketches", "druid-lookups-cached-global", "postgresql-metadata-storage"]'
+  druid_indexer_logs_directory: /opt/data/indexing-logs
+  druid_indexer_logs_type: file
+  druid_metadata_storage_connector_connectURI: jdbc:postgresql://druid-postgresql:5432/druid
+  druid_metadata_storage_connector_password: druid
+  druid_metadata_storage_connector_user: druid
+  druid_metadata_storage_type: postgresql
+  druid_storage_type: local
+  druid_zk_service_host: druid-zookeeper-headless:2181
+kind: ConfigMap
+metadata:
+  labels:
+    app: druid
+    chart: druid-31.0.5
+    heritage: Helm
+    release: druid
+  name: druid
+  namespace: druid

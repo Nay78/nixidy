@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: druid
+    chart: druid-31.0.5
+    component: router
+    heritage: Helm
+    release: druid
+  name: druid-router
+  namespace: druid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: druid
+      component: router
+      release: druid
+  template:
+    metadata:
+      annotations:
+        druid.k8s.enablePatching: "true"
+      labels:
+        app: druid
+        component: router
+        release: druid
+    spec:
+      containers:
+        - args:
+            - router
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: DRUID_MAXDIRECTMEMORYSIZE
+              value: 128m
+            - name: DRUID_XMS
+              value: 128m
+            - name: DRUID_XMX
+              value: 128m
+          envFrom:
+            - configMapRef:
+                name: druid
+          image: apache/druid:30.0.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /status/health
+              port: 8888
+            initialDelaySeconds: 60
+          name: druid
+          ports:
+            - containerPort: 8888
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /status/health
+              port: 8888
+            initialDelaySeconds: 60
+          resources: {}
+      serviceAccountName: druid-router

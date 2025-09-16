@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: druid
+    chart: druid-31.0.5
+    component: coordinator
+    heritage: Helm
+    release: druid
+  name: druid-coordinator
+  namespace: druid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: druid
+      component: coordinator
+      release: druid
+  template:
+    metadata:
+      annotations:
+        druid.k8s.enablePatching: "true"
+      labels:
+        app: druid
+        component: coordinator
+        release: druid
+    spec:
+      containers:
+        - args:
+            - coordinator
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: DRUID_XMS
+              value: 256m
+            - name: DRUID_XMX
+              value: 256m
+          envFrom:
+            - configMapRef:
+                name: druid
+          image: apache/druid:30.0.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /status/health
+              port: 8081
+            initialDelaySeconds: 60
+          name: druid
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /status/health
+              port: 8081
+            initialDelaySeconds: 60
+          resources: {}
+      serviceAccountName: druid-coordinator

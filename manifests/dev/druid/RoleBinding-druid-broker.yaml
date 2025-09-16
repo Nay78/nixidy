@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app: druid
+    chart: druid-31.0.5
+    component: broker
+    heritage: Helm
+    release: druid
+  name: druid-broker
+  namespace: druid
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: druid-broker
+subjects:
+  - kind: ServiceAccount
+    name: druid-broker
+    namespace: druid
