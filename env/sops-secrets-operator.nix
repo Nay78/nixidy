@@ -14,14 +14,13 @@
       };
 
       values = {
-        # service = {
-        #   type = "NodePort";
-        #   port = 8888;
-        #   targetPort = 8888;
-        #   nodePort = {
-        #     http = 8888;
-        #   };
-        # };
+        secretsAsFiles = [
+          {
+            mountPath = "/etc/sops-age-private-key";
+            name = "sops-age-private-key";
+            secretName = "sops-age-private-key";
+          }
+        ];
       };
 
     };
