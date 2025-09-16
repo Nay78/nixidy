@@ -7,7 +7,25 @@
     namespace = "superset";
     createNamespace = true;
 
-    yamls = [ (builtins.readFile ../sops/superset.sops.yaml) ];
+    yamls = [
+      (builtins.readFile ../sops/superset.sops.yaml)
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: druid
+          namespace: druid
+          annotations:
+            tailscale.com/expose: "true"
+        spec:
+          selector:
+            app: druid
+          ports:
+            - protocol: TCP
+              port: 8888
+              targetPort: 8888
+      ''
+    ];
 
     helm.releases.superset = {
       # Use `lib.helm.downloadHelmChart` to fetch
@@ -61,9 +79,9 @@
         secretEnv = {
           create = false;
         };
-        annotations = {
-          "tailscale.com/expose" = "true";
-        };
+        # annotations = {
+        #   "tailscale.com/expose" = "true";
+        # };
         # extraEnv = {
         #   key = "helloworlde";
         #
