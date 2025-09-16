@@ -15,6 +15,24 @@
       };
 
       values = {
+        server = {
+          replicaCount = 1;
+        };
+        cassandra = {
+          config = {
+            cluster_size = 1;
+          };
+        };
+        elasticsearch = {
+          replicas = 1;
+        };
+        prometheus = {
+          enabled = false;
+        };
+        grafana = {
+          enabled = false;
+        };
+
       };
     };
 

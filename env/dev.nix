@@ -18,5 +18,6 @@
     ./n8n2.nix
     ./sealed-secrets.nix
     ./temporal.nix
+    ./druid.nix
   ];
 }
