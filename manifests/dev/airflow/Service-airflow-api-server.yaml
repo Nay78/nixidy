@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    chart: airflow-1.18.0
+    component: api-server
+    heritage: Helm
+    release: airflow
+    tier: airflow
+  name: airflow-api-server
+  namespace: airflow
+spec:
+  ports:
+    - name: api-server
+      port: 8080
+  selector:
+    component: api-server
+    release: airflow
+    tier: airflow
+  type: ClusterIP

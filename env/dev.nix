@@ -20,6 +20,7 @@
     ./sops-secrets-operator.nix
     # ./temporal.nix
     ./druid.nix
+    ./airflow.nix
     ./tailscale.nix
   ];
 }

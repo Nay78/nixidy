@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airflow
+  namespace: argocd
+spec:
+  destination:
+    namespace: airflow
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./manifests/dev/airflow
+    repoURL: https://github.com/Nay78/nixidy
+    targetRevision: main
+  syncPolicy: {}

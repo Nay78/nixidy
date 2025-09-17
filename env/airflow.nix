@@ -23,12 +23,11 @@
     ];
 
     helm.releases.airflow = {
-      #helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
       chart = lib.helm.downloadHelmChart {
         repo = "https://airflow.apache.org/";
         chart = "airflow";
-        version = "1.18.1";
-        chartHash = "";
+        version = "1.18.0";
+        chartHash = "sha256-RpuMs61pTLPJ61Frzir0ob6vH9ixX2ceSKclFRfv5dI=";
       };
 
       values = {
