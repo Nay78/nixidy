@@ -1,0 +1,169 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: sgshardedbackups.stackgres.io
+spec:
+  group: stackgres.io
+  names:
+    kind: SGShardedBackup
+    listKind: SGShardedBackupList
+    plural: sgshardedbackups
+    shortNames:
+      - sgsbk
+    singular: sgshardedbackup
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .spec.sgShardedCluster
+          name: cluster
+          type: string
+        - jsonPath: .spec.managedLifecycle
+          name: managed
+          type: string
+        - jsonPath: .status.process.status
+          name: status
+          type: string
+        - jsonPath: .status.backupInformation.postgresVersion
+          name: pg-version
+          priority: 1
+          type: string
+        - format: byte
+          jsonPath: .status.backupInformation.size.compressed
+          name: compressed-size
+          priority: 1
+          type: integer
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |
+            A manual or automatically generated sharded backup of an SGCluster configured with an SGBackupConfig.
+
+            When a SGBackup is created a Job will perform a full sharded backup of the database and update the status of the SGBackup
+             with the all the information required to restore it and some stats (or a failure message in case something unexpected
+             happened).
+            After an SGBackup is created the same Job performs a reconciliation of the sharded backups by applying the retention window
+             that has been configured in the SGBackupConfig and removing the sharded backups with managed lifecycle and the WAL files older
+             than the ones that fit in the retention window. The reconciliation also removes sharded backups (excluding WAL files) that do
+             not belongs to any SGBackup. If the target storage of the SGBackupConfig is changed deletion of an SGBackup sharded backups
+             with managed lifecycle and the WAL files older than the ones that fit in the retention window and of sharded backups that do
+             not belongs to any SGBackup will not be performed anymore on the previous storage, only on the new target storage.
+          properties:
+            metadata:
+              properties:
+                name:
+                  description: |
+                    Name of the sharded backup. Following [Kubernetes naming conventions](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/identifiers.md), it must be an rfc1035/rfc1123 subdomain, that is, up to 253 characters consisting of one or more lowercase labels separated by `.`. Where each label is an alphanumeric (a-z, and 0-9) string, with the `-` character allowed anywhere except the first or last character.
+
+                    The name must be unique across all StackGres sharded backups in the same namespace."
+                  maxLength: 56
+                  pattern: ^[a-z]([-a-z0-9]*[a-z0-9])?$
+                  type: string
+              type: object
+            spec:
+              properties:
+                managedLifecycle:
+                  description: |
+                    Indicate if this sharded backup is permanent and should not be removed by the automated
+                     retention policy. Default is `false`.
+                  type: boolean
+                maxRetries:
+                  description: |
+                    The maximum number of retries the backup operation is allowed to do after a failure.
+
+                    A value of `0` (zero) means no retries are made. Defaults to: `3`.
+                  type: integer
+                reconciliationTimeout:
+                  default: 300
+                  description: |
+                    Allow to set a timeout for the reconciliation process that take place after the backup.
+
+                    If not set defaults to 300 (5 minutes). If set to 0 it will disable timeout.
+
+                    Failure of reconciliation will not make the backup fail and will be re-tried the next time a SGBackup
+                     or shecduled backup Job take place.
+                  type: integer
+                sgShardedCluster:
+                  description: |
+                    The name of the `SGShardedCluster` from which this sharded backup is/will be taken.
+
+                    If this is a copy of an existing completed sharded backup in a different namespace
+                     the value must be prefixed with the namespace of the source backup and a
+                     dot `.` (e.g. `<sharded cluster namespace>.<sharded cluster name>`) or have the same value
+                     if the source sharded backup is also a copy.
+                  type: string
+                timeout:
+                  description: |
+                    Allow to set a timeout for the backup creation.
+
+                    If not set it will be disabled and the backup operation will continue until the backup completes or fail. If set to 0 is the same as not being set.
+
+                    Make sure to set a reasonable high value in order to allow for any unexpected delays during backup creation (network low bandwidth, disk low throughput and so forth).
+                  type: integer
+              type: object
+            status:
+              properties:
+                backupInformation:
+                  properties:
+                    postgresVersion:
+                      description: |
+                        Postgres version of the server where the sharded backup is taken from.
+                      type: string
+                    size:
+                      properties:
+                        compressed:
+                          description: |
+                            Size (in bytes) of the compressed sharded backup.
+                          format: int64
+                          type: integer
+                        uncompressed:
+                          description: |
+                            Size (in bytes) of the uncompressed sharded backup.
+                          format: int64
+                          type: integer
+                      type: object
+                  type: object
+                process:
+                  properties:
+                    failure:
+                      description: |
+                        If the status is `failed` this field will contain a message indicating the failure reason.
+                      type: string
+                    jobPod:
+                      description: |
+                        Name of the pod assigned to the sharded backup. StackGres utilizes internally a locking mechanism based on the pod name of the job that creates the sharded backup.
+                      type: string
+                    status:
+                      description: |
+                        Status of the sharded backup.
+                      type: string
+                    timing:
+                      properties:
+                        end:
+                          description: |
+                            End time of sharded backup.
+                          type: string
+                        start:
+                          description: |
+                            Start time of sharded backup.
+                          type: string
+                        stored:
+                          description: |
+                            Time at which the sharded backup is safely stored in the object storage.
+                          type: string
+                      type: object
+                  type: object
+                sgBackups:
+                  description: |
+                    The list of SGBackups that compose the SGShardedBackup used to restore the sharded cluster.
+                  items:
+                    description: |
+                      One of the SGBackups that compose the SGShardedBackup used to restore the sharded cluster.
+                    type: string
+                  type: array
+              type: object
+          required:
+            - metadata
+            - spec
+          type: object
+      served: true
+      storage: true

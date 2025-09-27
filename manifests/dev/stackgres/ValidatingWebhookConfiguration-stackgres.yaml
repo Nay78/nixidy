@@ -1,0 +1,291 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: stackgres
+  namespace: stackgres
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgcluster
+        port: 443
+    failurePolicy: Fail
+    name: sgcluster.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - sgclusters
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgpgconfig
+        port: 443
+    failurePolicy: Fail
+    name: sgpgconfig.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgpgconfigs
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgpoolconfig
+        port: 443
+    failurePolicy: Fail
+    name: sgpoolconfig.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgpoolconfigs
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sginstanceprofile
+        port: 443
+    failurePolicy: Fail
+    name: sginstanceprofile.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sginstanceprofiles
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgbackup
+        port: 443
+    failurePolicy: Fail
+    name: sgbackup.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgbackups
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgdistributedlogs
+        port: 443
+    failurePolicy: Fail
+    name: sgdistributedlogs.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgdistributedlogs
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgdbops
+        port: 443
+    failurePolicy: Fail
+    name: sgdbops.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgdbops
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgobjectstorage
+        port: 443
+    failurePolicy: Fail
+    name: sgobjectstorage.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgobjectstorages
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgscript
+        port: 443
+    failurePolicy: Fail
+    name: sgscript.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgscripts
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgshardedcluster
+        port: 443
+    failurePolicy: Fail
+    name: sgshardedcluster.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgshardedclusters
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgshardedbackup
+        port: 443
+    failurePolicy: Fail
+    name: sgshardedbackup.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgshardedbackups
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgshardeddbops
+        port: 443
+    failurePolicy: Fail
+    name: sgshardeddbops.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgshardeddbops
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: stackgres
+        namespace: stackgres
+        path: /stackgres/validation/sgstream
+        port: 443
+    failurePolicy: Fail
+    name: sgstream.validating-webhook.stackgres.io
+    rules:
+      - apiGroups:
+          - stackgres.io
+        apiVersions:
+          - '*'
+        operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        resources:
+          - sgstreams
+    sideEffects: None

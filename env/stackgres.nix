@@ -25,10 +25,11 @@
 
     helm.releases.stackgres = {
       chart = lib.helm.downloadHelmChart {
-        repo = "https://stackgres.io/downloads/stackgres-k8s/stackgres/latest/helm/stackgres-operator.tgz";
+
+        repo = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/";
         chart = "stackgres-operator";
         version = "1.17.2";
-        chartHash = "";
+        chartHash = "sha256-Y9LAvUwQsFCsqcGpv4g1vZYOZGfgpUykQ8H3Ez22zOQ=";
       };
 
       values = {
