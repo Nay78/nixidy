@@ -1,4 +1,10 @@
 {
+  pkgs,
+  self,
+  system,
+  ...
+}:
+{
   nixidy.target.repository = "https://github.com/Nay78/nixidy";
 
   # Set the target branch the rendered manifests for _this_
@@ -9,6 +15,26 @@
   # Set the target sub-directory to copy the generated
   # manifests to when running `nixidy switch .#dev`.
   nixidy.target.rootPath = "./manifests/dev";
+
+  # generate = {
+  #   type = "app";
+  #   program =
+  #     (pkgs.writeShellScript "generate-modules" ''
+  #       set -eo pipefail
+  #
+  #       # echo "generate onepassword"
+  #       # cat ${self.packages.${system}.generators.onepassword} > modules/1password-connect/generated.nix
+  #
+  #       echo "generate cilium"
+  #       cat ${self.packages.${system}.generators.cilium} > ./generated/cilium.nix
+  #
+  #       # echo "generate tailscale"
+  #       # cat ${self.packages.${system}.generators.tailscale} > modules/tailscale-operator/generated.nix
+  #       #
+  #       # echo "generate traefik"
+  #       # cat ${self.packages.${system}.generators.traefik} > modules/traefik/generated.nix
+  #     '').outPath;
+  # };
 
   imports = [
     ./superset.nix
@@ -22,7 +48,8 @@
     ./druid.nix
     ./airflow.nix
     ./tailscale.nix
-    ./pg/stackgres.nix
+    # ./stackgres/stackgres.nix
+    ./db/cloud-native-pg.nix
 
   ];
 }
