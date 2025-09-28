@@ -21,8 +21,8 @@
     # ./temporal.nix
     ./druid.nix
     ./airflow.nix
-    ./stackgres.nix
     ./tailscale.nix
+    ./pg/stackgres.nix
 
   ];
 }

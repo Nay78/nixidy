@@ -7,6 +7,8 @@
     namespace = "superset";
     createNamespace = true;
 
+    # helm install --create-namespace --namespace stackgres stackgres-operator --set-string adminui.service.type=LoadBalancer https://stackgres.io/downloads/stackgres-k8s/stackgres/latest/helm/stackgres-operator.tgz
+
     yamls = [
       (builtins.readFile ../sops/superset.sops.yaml)
       ''

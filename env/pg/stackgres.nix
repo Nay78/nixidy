@@ -1,5 +1,17 @@
 { lib, ... }:
+
+# let
+#   stackgres-crd = builtins.fetchurl {
+#     url = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/stackgres-operator/crds/";
+#     sha256 = "";
+#   };
+# in
 {
+  # applications.k8s-gw-api-crds = {
+  #   yamls = [
+  #     (builtins.readFile stackgres-crd)
+  #   ];
+  # };
   # --set-string adminui.service.type=LoadBalancer https://stackgres.io/downloads/stackgres-k8s/stackgres/latest/helm/stackgres-operator.tgz
   applications.stackgres = {
     namespace = "stackgres";
@@ -23,6 +35,8 @@
       ''
     ];
 
+    # allowVolumeExpansion = true;
+
     helm.releases.stackgres = {
       chart = lib.helm.downloadHelmChart {
 
@@ -31,12 +45,12 @@
         version = "1.17.2";
         chartHash = "sha256-Y9LAvUwQsFCsqcGpv4g1vZYOZGfgpUykQ8H3Ez22zOQ=";
       };
+      # crds = [
+      #   "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/stackgres-operator/crds/"
+      # ];
 
       values = {
 
-        # annotations = {
-        #   "tailscale.com/expose" = "true";
-        # };
       };
     };
 
