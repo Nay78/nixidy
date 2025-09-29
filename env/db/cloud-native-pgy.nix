@@ -1,4 +1,4 @@
-{ charts, lib, ... }:
+{ lib, ... }:
 
 {
   #   helm repo add cnpg https://cloudnative-pg.github.io/charts
@@ -33,15 +33,21 @@
 
     # helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
     helm.releases.cnpg = {
+      chart = lib.helm.downloadHelmChart {
+        repo = "https://cloudnative-pg.github.io/charts";
+        chart = "cloudnative-pg";
+        version = "0.26.0";
+        chartHash = "sha256-8VgcvZqJS/jts2TJJjaj6V4BRDy56phyd0gwPs0bhnI=";
+      };
 
-      # chart = charts.stackgres.stackgres;
-      chart = charts.cloudnative-pg;
       values = {
-        # instances = 3;
-        #
-        # storage = {
-        #   size = "1Gi";
-        # };
+        values = {
+          instances = 3;
+
+          storage = {
+            size = "1Gi";
+          };
+        };
 
       };
     };

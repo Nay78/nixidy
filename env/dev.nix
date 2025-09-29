@@ -7,6 +7,7 @@
 {
   nixidy.target.repository = "https://github.com/Nay78/nixidy";
 
+  nixidy.chartsDir = ../charts;
   # Set the target branch the rendered manifests for _this_
   # environment should be pushed to in the repository defined
   # above.

@@ -9,12 +9,18 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.nixhelm = {
+    url = "github:farcaller/nixhelm";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs =
     {
       self,
       nixpkgs,
       flake-utils,
       nixidy,
+      nixhelm,
     }:
     (flake-utils.lib.eachDefaultSystem (
       system:
@@ -29,9 +35,12 @@
           inherit pkgs;
           # inherit self;
 
+          # ni
           envs = {
-            # Currently we only have the one dev env.
-            dev.modules = [ ./env/dev.nix ];
+            dev = {
+              charts = nixhelm.chartsDerivations.${system};
+              modules = [ ./env/dev.nix ];
+            };
           };
         };
 
