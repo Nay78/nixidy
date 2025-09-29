@@ -38,14 +38,14 @@ in
       };
       values = {
         N8N_RUNNERS_ENABLED = true;
-        service = {
-          type = "NodePort";
-          port = 80;
-          targetPort = 5678;
-          nodePort = {
-            http = 5678;
-          };
-        };
+        # service = {
+        #   type = "NodePort";
+        #   port = 80;
+        #   targetPort = 5678;
+        #   nodePort = {
+        #     http = 5678;
+        #   };
+        # };
         # service = {
         #   type = "ClusterIP";
         #   annotations = {
