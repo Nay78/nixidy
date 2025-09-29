@@ -20,10 +20,10 @@ in
         spec:
           selector:
             app: ${n}
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 5678
       ''
     ];
 
