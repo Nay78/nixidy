@@ -6,9 +6,5 @@ metadata:
   name: tailscale
   namespace: n8n
 spec:
-  ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 5678
   selector:
     app: n8n
