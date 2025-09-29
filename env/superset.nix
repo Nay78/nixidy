@@ -22,10 +22,6 @@
         spec:
           selector:
             app: superset
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
       ''
     ];
 

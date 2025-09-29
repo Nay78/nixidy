@@ -1,9 +1,11 @@
 { lib, ... }:
-
+let
+  n = "n8n";
+in
 {
 
-  applications.n8n = {
-    namespace = "n8n";
+  applications.${n} = {
+    namespace = "${n}";
     createNamespace = true;
     yamls = [
       # (builtins.readFile ../sops/superset.sops.yaml)
@@ -11,13 +13,13 @@
         apiVersion: v1
         kind: Service
         metadata:
-          name: n8n
-          namespace: n8n
+          name: ${n}_tailscale
+          namespace: ${n}
           annotations:
             tailscale.com/expose: "true"
         spec:
           selector:
-            app: n8n
+            app: ${n}
           # ports:
           #   - protocol: TCP
           #     port: 8888
