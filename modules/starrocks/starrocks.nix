@@ -36,7 +36,45 @@
 
       # Example values to pass to the Helm Chart.
       values = {
+        starrocksFESpec = {
+          replicas = 3;
+          service = {
+            type = "ClusterIP";
+            annotations = {
+              "tailscale.com/expose" = "true";
+            };
+          };
+          resources = {
+            requests = {
+              cpu = 1;
+              memory = "1Gi";
+            };
+          };
+          storageSpec = {
+            name = "fe";
+          };
+        };
 
+        starrocksBeSpec = {
+          replicas = 3;
+          resources = {
+            requests = {
+              cpu = 1;
+              memory = "2Gi";
+            };
+          };
+          storageSpec = {
+            name = "be";
+            storageSize = "15Gi";
+          };
+        };
+
+        # starrocksFeProxySpec = {
+        #   enabled = true;
+        #   service = {
+        #     type = "LoadBalancer";
+        #   };
+        # };
       };
     };
 

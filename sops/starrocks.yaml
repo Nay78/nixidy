@@ -1,0 +1,10 @@
+apiVersion: isindir.github.com/v1alpha3
+kind: SopsSecret
+metadata:
+  name: operator-oauth
+  namespace: tailscale
+spec:
+  secretTemplates:
+    - name: starrocks-root-pass
+      stringData:
+        password: "1"
