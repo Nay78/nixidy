@@ -1,13 +1,13 @@
 apiVersion: isindir.github.com/v1alpha3
 kind: SopsSecret
 metadata:
-    name: operator-oauth
-    namespace: tailscale
+    name: starrocks-root
+    namespace: starrocks
 spec:
     secretTemplates:
         - name: starrocks-root-pass
           stringData:
-            password: ENC[AES256_GCM,data:FOQS,iv:8UU6JnBkjmBQtB0PSgMZL/wCqtsBowwngbtijYuUXSQ=,tag:e3Vl1/WFc10fTVeULuR5jQ==,type:str]
+            password: ENC[AES256_GCM,data:4FuBJCxPauZldMna6vQ0UCaQ,iv:TjI4Bnki8HU66bkH4hGfxShHscPDKSlKj002tqD+aP4=,tag:sXcRZFAJj5FzpptvYkvXqw==,type:str]
 sops:
     age:
         - recipient: age1yuq8mumrg7yv2nxvfj3kzh6hxfjdl5zmsxda8pl5tjlvclmzjuns066uy2
@@ -28,7 +28,7 @@ sops:
             Q2VXRDhrTng1ZDV5YjdmanJ2UVNKZHcKEs4KeB0ICGyhc7NaxOo/OLwMPEPuEYKv
             jEFmIMTHpTlofx5PYUaDljDJ6BCY7fTRn9+GGJeFkIPf9WFG/ADDUw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-09-29T20:24:43Z"
-    mac: ENC[AES256_GCM,data:m01luw9S5jhbp+hD/boQ3Df12W6qlE0cmpL2sK+LG4SkPaC+JQqNRl/AZRtuCMrKEsFSOEurd5a3IC8zr9p5CgDxz68PKqVJs8FBaiM1jfZcPrOHmjO61J7cf5XyYPM3j65xAq5H0etNTft0xWlkqxu+riFg94J2Gg1vyzDS5K4=,iv:M8vlMA8YrjWbChLrTTUMM0OevQCeN1Y/BCSaicHMoOk=,tag:gBVzll2P3ibqm+sMk1VACg==,type:str]
+    lastmodified: "2025-09-29T21:03:36Z"
+    mac: ENC[AES256_GCM,data:F0JPs5du1pt8mAQHUfyqBdbZw0fZaJdUuCbTNS5UPBpq2GUAXw4MuKO/zPfev/5QcR1ofpm+IMCwfKXvRIOoL7nCE/I7k96mb+rl2bSThlnmnfcMT/ZjLMn5Ed3F0MEpxzXOSz3IFcRXWFpYMi+oDEyO1gqqi3lRQF5AuQhvI4c=,iv:4VumnFajKHVGhC0lLFnZVbT/BaaF6jqKg884VZA40h4=,tag:fVQFnUaLjI+rEc+uF4ueow==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.10.2
