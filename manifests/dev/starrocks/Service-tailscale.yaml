@@ -3,8 +3,12 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/expose: "true"
-  name: starrocksTailscale
+  name: tailscale
   namespace: starrocks
 spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8030
   selector:
     app: starrocks

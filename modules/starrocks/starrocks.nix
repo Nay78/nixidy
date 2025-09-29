@@ -18,13 +18,18 @@ in
         apiVersion: v1
         kind: Service
         metadata:
-          name: starrocksTailscale
+          name: tailscale
           namespace: starrocks
           annotations:
             tailscale.com/expose: "true"
         spec:
           selector:
             app: starrocks
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 8030
+
       ''
 
     ];
