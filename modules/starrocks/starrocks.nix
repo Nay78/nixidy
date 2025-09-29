@@ -5,7 +5,7 @@
     createNamespace = true;
 
     yamls = [
-      # (builtins.readFile ../sops/starrocks.sops.yaml)
+      (builtins.readFile ../../sops/starrocks.sops.yaml)
       ''
         apiVersion: v1
         kind: Service
