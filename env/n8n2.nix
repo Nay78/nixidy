@@ -8,23 +8,22 @@ in
     namespace = "${n}";
     createNamespace = true;
     yamls = [
-      # (builtins.readFile ../sops/superset.sops.yaml)
-      # ''
-      #   apiVersion: v1
-      #   kind: Service
-      #   metadata:
-      #     name: ${n}_tailscale
-      #     namespace: ${n}
-      #     annotations:
-      #       tailscale.com/expose: "true"
-      #   spec:
-      #     selector:
-      #       app: ${n}
-      #     ports:
-      #       - protocol: TCP
-      #         port: 80
-      #         targetPort: 5678
-      # ''
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: tailscale
+          namespace: ${n}
+          annotations:
+            tailscale.com/expose: "true"
+        spec:
+          selector:
+            app: ${n}
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 5678
+      ''
     ];
 
     helm.releases.n8n = {
@@ -39,17 +38,17 @@ in
       };
       values = {
         N8N_RUNNERS_ENABLED = true;
-        service = {
-          type = "ClusterIP";
-          annotations = {
-            "tailscale.com/expose" = "true";
-          };
-          port = 80;
-          targetPort = 5678;
-          # nodePort = {
-          #   http = 5678;
-          # };
-        };
+        # service = {
+        #   type = "ClusterIP";
+        #   annotations = {
+        #     "tailscale.com/expose" = "true";
+        #   };
+        #   port = 80;
+        #   targetPort = 5678;
+        #   # nodePort = {
+        #   #   http = 5678;
+        #   # };
+        # };
       };
 
       # Example values to pass to the Helm Chart.
