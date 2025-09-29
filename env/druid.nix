@@ -8,18 +8,19 @@
         apiVersion: v1
         kind: Service
         metadata:
-          name: druid
-          namespace: druid
+          name: starrocks
+          namespace: starrocks
           annotations:
             tailscale.com/expose: "true"
         spec:
           selector:
-            app: druid
-          ports:
-            - protocol: TCP
-              port: 8888
-              targetPort: 8888
+            app: starrocks
+          # ports:
+          #   - protocol: TCP
+          #     port: 8888
+          #     targetPort: 8888
       ''
+
     ];
 
     helm.releases.druid = {

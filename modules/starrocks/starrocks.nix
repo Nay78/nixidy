@@ -25,11 +25,8 @@ in
         spec:
           selector:
             app: starrocks
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
       ''
+
     ];
 
     helm.releases.starrocks = {
@@ -47,12 +44,12 @@ in
       values = {
         starrocksFESpec = {
           replicas = 3;
-          service = {
-            # type = "ClusterIP";
-            # annotations = {
-            #   "tailscale.com/expose" = "true";
-            # };
-          };
+          # service = {
+          #   type = "ClusterIP";
+          #   annotations = {
+          #     "tailscale.com/expose" = "true";
+          #   };
+          # };
           resources = {
             requests = {
               cpu = 1;
