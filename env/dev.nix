@@ -49,10 +49,10 @@
     ./sops-secrets-operator.nix
     # ./temporal.nix
     ./druid.nix
-    ./airflow.nix
+    # ./airflow.nix
     ./tailscale.nix
     # ./stackgres/stackgres.nix
-    ./db/cloud-native-pg.nix
+    # ./db/cloud-native-pg.nix
 
   ];
 }
