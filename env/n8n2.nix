@@ -40,15 +40,15 @@ in
       values = {
         N8N_RUNNERS_ENABLED = true;
         service = {
-          type = "NodePort";
+          type = "ClusterIP";
           annotations = {
             "tailscale.com/expose" = true;
           };
           port = 80;
-          # targetPort = 8088;
-          nodePort = {
-            http = 30088;
-          };
+          targetPort = 5678;
+          # nodePort = {
+          #   http = 5678;
+          # };
         };
       };
 
