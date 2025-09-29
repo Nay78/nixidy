@@ -4,8 +4,8 @@ endef
 
 
 p:
-	nixidy switch ./\#dev
 	git add .
+	nixidy switch ./\#dev
 	g p $(shell date +%M)
 
 gen:

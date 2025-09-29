@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kube-starrocks-operator
+  name: kube-starrocks-operator
+  namespace: starrocks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-starrocks-operator
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: manager
+      labels:
+        app: kube-starrocks-operator
+        version: 1.9.7
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - args:
+            - --leader-elect
+            - --zap-time-encoding=iso8601
+            - --zap-encoder=console
+          command:
+            - /sroperator
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          image: starrocks/operator:v1.9.7
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          name: manager
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 500m
+              memory: 800Mi
+            requests:
+              cpu: 500m
+              memory: 400Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+      serviceAccountName: starrocks
+      terminationGracePeriodSeconds: 10

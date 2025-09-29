@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: starrocks
+  namespace: argocd
+spec:
+  destination:
+    namespace: starrocks
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./manifests/dev/starrocks
+    repoURL: https://github.com/Nay78/nixidy
+    targetRevision: main
+  syncPolicy: {}

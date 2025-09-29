@@ -38,6 +38,8 @@
   # };
 
   imports = [
+    ../modules/starrocks/starrocks.nix
+
     ./superset.nix
     # ./metallb.nix
     # ./metallb-bitnami.nix

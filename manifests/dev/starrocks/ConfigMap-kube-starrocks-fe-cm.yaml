@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  fe.conf: |
+    LOG_DIR = ${STARROCKS_HOME}/log
+    DATE = "$(date +%Y%m%d-%H%M%S)"
+    JAVA_OPTS="-Dlog4j2.formatMsgNoLookups=true -Xmx8192m -XX:+UseG1GC -Xlog:gc*:${LOG_DIR}/fe.gc.log.$DATE:time"
+    http_port = 8030
+    rpc_port = 9020
+    query_port = 9030
+    edit_log_port = 9010
+    mysql_service_nio_enabled = true
+    sys_log_level = INFO
+kind: ConfigMap
+metadata:
+  labels:
+    app: fe
+    cluster: kube-starrocks
+  name: kube-starrocks-fe-cm
+  namespace: starrocks
