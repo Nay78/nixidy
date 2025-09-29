@@ -52,6 +52,13 @@ rules:
   - apiGroups:
       - starrocks.com
     resources:
+      - starrocksclusters/finalizers
+      - starrockswarehouses/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - starrocks.com
+    resources:
       - starrocksclusters/status
       - starrockswarehouses/status
     verbs:

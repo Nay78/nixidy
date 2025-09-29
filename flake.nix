@@ -64,6 +64,22 @@
                 "pkg/k8s/apis/cilium.io/client/crds/v2/ciliumclusterwidenetworkpolicies.yaml"
               ];
             };
+            starrocks = nixidy.packages.${system}.generators.fromCRD {
+              name = "starrocks";
+              src = "https://raw.githubusercontent.com/StarRocks/starrocks-kubernetes-operator/main/deploy/starrocks.com_starrocksclusters.yaml";
+              crds = [ "" ];
+
+              # name = "starrocks";
+              # src = pkgs.fetchFromGitHub {
+              #   owner = "starrocks";
+              #   repo = "starrocks";
+              #   rev = "v1.15.6";
+              #   hash = "";
+              # };
+              # crds = [
+              #   ""
+              # ];
+            };
             tailscale = nixidy.packages.${system}.generators.fromCRD {
               name = "tailscale";
               src = pkgs.fetchFromGitHub {

@@ -17,38 +17,42 @@ spec:
     configMapInfo:
       configMapName: kube-starrocks-be-cm
       resolveKey: be.conf
-    image: starrocks/be-ubuntu:3.2-latest
+    image: starrocks/be-ubuntu:3.5-latest
     imagePullPolicy: IfNotPresent
     limits:
       cpu: 8
       memory: 8Gi
+    minReadySeconds: 0
+    podManagementPolicy: Parallel
     replicas: 1
     requests:
       cpu: 4
       memory: 4Gi
-    runAsNonRoot: null
+    runAsNonRoot: false
     service:
       type: ClusterIP
     terminationGracePeriodSeconds: 120
   starRocksFeSpec:
     annotations:
-      app.starrocks.io/fe-config-hash: 99e4a506
+      app.starrocks.io/fe-config-hash: fa8499a9
     configMapInfo:
       configMapName: kube-starrocks-fe-cm
       resolveKey: fe.conf
     feEnvVars:
       - name: TZ
         value: Asia/Shanghai
-    image: starrocks/fe-ubuntu:3.2-latest
+    image: starrocks/fe-ubuntu:3.5-latest
     imagePullPolicy: IfNotPresent
     limits:
       cpu: 8
       memory: 8Gi
+    minReadySeconds: 0
+    podManagementPolicy: Parallel
     replicas: 1
     requests:
       cpu: 4
       memory: 4Gi
-    runAsNonRoot: null
+    runAsNonRoot: false
     service:
       type: ClusterIP
     terminationGracePeriodSeconds: 120

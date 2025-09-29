@@ -16,7 +16,7 @@ spec:
         kubectl.kubernetes.io/default-container: manager
       labels:
         app: kube-starrocks-operator
-        version: 1.9.7
+        version: 1.11.2
     spec:
       automountServiceAccountToken: true
       containers:
@@ -24,12 +24,13 @@ spec:
             - --leader-elect
             - --zap-time-encoding=iso8601
             - --zap-encoder=console
+            - --volume-name-with-hash=true
           command:
             - /sroperator
           env:
             - name: TZ
               value: Asia/Shanghai
-          image: starrocks/operator:v1.9.7
+          image: starrocks/operator:v1.11.2
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

@@ -1,4 +1,11 @@
 { lib, ... }:
+let
+  starrocksCRD = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/StarRocks/starrocks-kubernetes-operator/main/deploy/starrocks.com_starrocksclusters.yaml";
+    sha256 = "sha256:0w951fmby5jharfhgv542k9hhbnxavnapwrz80h146fk2k5x4jjc"; # Replace with actual hash
+  };
+in
+
 {
   applications.starrocks = {
     namespace = "starrocks";
@@ -6,6 +13,7 @@
 
     yamls = [
       (builtins.readFile ../../sops/starrocks.sops.yaml)
+      (builtins.readFile starrocksCRD)
       ''
         apiVersion: v1
         kind: Service
@@ -30,9 +38,10 @@
       chart = lib.helm.downloadHelmChart {
         repo = "https://starrocks.github.io/starrocks-kubernetes-operator";
         chart = "kube-starrocks";
-        version = "1.9.7";
-        chartHash = "sha256-7aEkuabKDDYfkkIm4insyFp+E0b7acUF7QBM3VWqJWw=";
+        version = "1.11.2";
+        chartHash = "sha256-u8Sz6LXInhpP7/0xLb8iaRPutb8F4OxibV/wsJAEdYw=";
       };
+      includeCRDs = true;
 
       # Example values to pass to the Helm Chart.
       values = {

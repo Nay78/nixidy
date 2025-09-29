@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-    version: v1.9.7
+    version: v1.11.2
   name: starrocksclusters.starrocks.com
 spec:
   group: starrocks.com
@@ -12,6 +12,7 @@ spec:
     listKind: StarRocksClusterList
     plural: starrocksclusters
     shortNames:
+      - src
       - src
     singular: starrockscluster
   scope: Namespaced
@@ -44,6 +45,14 @@ spec:
               type: object
             spec:
               properties:
+                disasterRecovery:
+                  properties:
+                    enabled:
+                      type: boolean
+                    generation:
+                      format: int64
+                      type: integer
+                  type: object
                 serviceAccount:
                   type: string
                 starRocksBeSpec:
@@ -1272,18 +1281,33 @@ spec:
                     livenessProbeFailureSeconds:
                       format: int32
                       type: integer
+                    minReadySeconds:
+                      format: int32
+                      type: integer
                     nodeSelector:
                       additionalProperties:
                         type: string
+                      type: object
+                    persistentVolumeClaimRetentionPolicy:
+                      properties:
+                        whenDeleted:
+                          type: string
+                        whenScaled:
+                          type: string
                       type: object
                     podLabels:
                       additionalProperties:
                         type: string
                       type: object
+                    podManagementPolicy:
+                      type: string
+                    readOnlyRootFilesystem:
+                      type: boolean
                     readinessProbeFailureSeconds:
                       format: int32
                       type: integer
                     replicas:
+                      default: 1
                       format: int32
                       minimum: 0
                       type: integer
@@ -1316,6 +1340,10 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                        labels:
+                          additionalProperties:
+                            type: string
+                          type: object
                         loadBalancerIP:
                           type: string
                         loadBalancerSourceRanges:
@@ -1343,6 +1371,8 @@ spec:
                       type: object
                     serviceAccount:
                       type: string
+                    shareProcessNamespace:
+                      type: boolean
                     sidecars:
                       items:
                         properties:
@@ -1980,6 +2010,18 @@ spec:
                           - name
                         type: object
                       type: array
+                    sysctls:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                        required:
+                          - name
+                          - value
+                        type: object
+                      type: array
                     terminationGracePeriodSeconds:
                       format: int64
                       type: integer
@@ -2051,6 +2093,22 @@ spec:
                           - whenUnsatisfiable
                         type: object
                       type: array
+                    updateStrategy:
+                      properties:
+                        rollingUpdate:
+                          properties:
+                            maxUnavailable:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              x-kubernetes-int-or-string: true
+                            partition:
+                              format: int32
+                              type: integer
+                          type: object
+                        type:
+                          type: string
+                      type: object
                   type: object
                 starRocksCnSpec:
                   properties:
@@ -3609,18 +3667,33 @@ spec:
                     livenessProbeFailureSeconds:
                       format: int32
                       type: integer
+                    minReadySeconds:
+                      format: int32
+                      type: integer
                     nodeSelector:
                       additionalProperties:
                         type: string
+                      type: object
+                    persistentVolumeClaimRetentionPolicy:
+                      properties:
+                        whenDeleted:
+                          type: string
+                        whenScaled:
+                          type: string
                       type: object
                     podLabels:
                       additionalProperties:
                         type: string
                       type: object
+                    podManagementPolicy:
+                      type: string
+                    readOnlyRootFilesystem:
+                      type: boolean
                     readinessProbeFailureSeconds:
                       format: int32
                       type: integer
                     replicas:
+                      default: 1
                       format: int32
                       minimum: 0
                       type: integer
@@ -3653,6 +3726,10 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                        labels:
+                          additionalProperties:
+                            type: string
+                          type: object
                         loadBalancerIP:
                           type: string
                         loadBalancerSourceRanges:
@@ -3680,6 +3757,8 @@ spec:
                       type: object
                     serviceAccount:
                       type: string
+                    shareProcessNamespace:
+                      type: boolean
                     sidecars:
                       items:
                         properties:
@@ -4317,6 +4396,18 @@ spec:
                           - name
                         type: object
                       type: array
+                    sysctls:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                        required:
+                          - name
+                          - value
+                        type: object
+                      type: array
                     terminationGracePeriodSeconds:
                       format: int64
                       type: integer
@@ -4388,6 +4479,22 @@ spec:
                           - whenUnsatisfiable
                         type: object
                       type: array
+                    updateStrategy:
+                      properties:
+                        rollingUpdate:
+                          properties:
+                            maxUnavailable:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              x-kubernetes-int-or-string: true
+                            partition:
+                              format: int32
+                              type: integer
+                          type: object
+                        type:
+                          type: string
+                      type: object
                   type: object
                 starRocksFeProxySpec:
                   properties:
@@ -4917,6 +5024,7 @@ spec:
                       format: int32
                       type: integer
                     replicas:
+                      default: 1
                       format: int32
                       minimum: 0
                       type: integer
@@ -4935,6 +5043,10 @@ spec:
                     service:
                       properties:
                         annotations:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        labels:
                           additionalProperties:
                             type: string
                           type: object
@@ -4965,6 +5077,8 @@ spec:
                       type: object
                     serviceAccount:
                       type: string
+                    shareProcessNamespace:
+                      type: boolean
                     startupProbeFailureSeconds:
                       format: int32
                       type: integer
@@ -6292,18 +6406,33 @@ spec:
                     livenessProbeFailureSeconds:
                       format: int32
                       type: integer
+                    minReadySeconds:
+                      format: int32
+                      type: integer
                     nodeSelector:
                       additionalProperties:
                         type: string
+                      type: object
+                    persistentVolumeClaimRetentionPolicy:
+                      properties:
+                        whenDeleted:
+                          type: string
+                        whenScaled:
+                          type: string
                       type: object
                     podLabels:
                       additionalProperties:
                         type: string
                       type: object
+                    podManagementPolicy:
+                      type: string
+                    readOnlyRootFilesystem:
+                      type: boolean
                     readinessProbeFailureSeconds:
                       format: int32
                       type: integer
                     replicas:
+                      default: 1
                       format: int32
                       minimum: 0
                       type: integer
@@ -6336,6 +6465,10 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                        labels:
+                          additionalProperties:
+                            type: string
+                          type: object
                         loadBalancerIP:
                           type: string
                         loadBalancerSourceRanges:
@@ -6363,6 +6496,8 @@ spec:
                       type: object
                     serviceAccount:
                       type: string
+                    shareProcessNamespace:
+                      type: boolean
                     sidecars:
                       items:
                         properties:
@@ -7000,6 +7135,18 @@ spec:
                           - name
                         type: object
                       type: array
+                    sysctls:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                        required:
+                          - name
+                          - value
+                        type: object
+                      type: array
                     terminationGracePeriodSeconds:
                       format: int64
                       type: integer
@@ -7071,10 +7218,42 @@ spec:
                           - whenUnsatisfiable
                         type: object
                       type: array
+                    updateStrategy:
+                      properties:
+                        rollingUpdate:
+                          properties:
+                            maxUnavailable:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              x-kubernetes-int-or-string: true
+                            partition:
+                              format: int32
+                              type: integer
+                          type: object
+                        type:
+                          type: string
+                      type: object
                   type: object
               type: object
             status:
               properties:
+                disasterRecoveryStatus:
+                  properties:
+                    endTimestamp:
+                      format: int64
+                      type: integer
+                    observedGeneration:
+                      format: int64
+                      type: integer
+                    phase:
+                      type: string
+                    reason:
+                      type: string
+                    startTimestamp:
+                      format: int64
+                      type: integer
+                  type: object
                 phase:
                   type: string
                 reason:
@@ -7129,6 +7308,9 @@ spec:
                       type: string
                     reason:
                       type: string
+                    replicas:
+                      format: int32
+                      type: integer
                     resourceNames:
                       items:
                         type: string
@@ -7137,6 +7319,8 @@ spec:
                       items:
                         type: string
                       type: array
+                    selector:
+                      type: string
                     serviceName:
                       type: string
                   required:
@@ -7203,4 +7387,8 @@ spec:
       served: true
       storage: true
       subresources:
+        scale:
+          labelSelectorPath: .status.starRocksCnStatus.selector
+          specReplicasPath: .spec.starRocksCnSpec.replicas
+          statusReplicasPath: .status.starRocksCnStatus.replicas
         status: {}
