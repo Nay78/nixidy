@@ -42,7 +42,7 @@ in
         service = {
           type = "ClusterIP";
           annotations = {
-            "tailscale.com/expose" = true;
+            "tailscale.com/expose" = "true";
           };
           port = 80;
           targetPort = 5678;
