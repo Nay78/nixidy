@@ -65,7 +65,7 @@
             fi'';
         service = {
           type = "NodePort";
-          port = 8088;
+          port = 80;
           targetPort = 8088;
           nodePort = {
             http = 30088;

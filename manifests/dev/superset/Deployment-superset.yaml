@@ -37,7 +37,7 @@ spec:
             - . /app/pythonpath/superset_bootstrap.sh; /usr/bin/run-server.sh
           env:
             - name: SUPERSET_PORT
-              value: "8088"
+              value: "80"
           envFrom:
             - secretRef:
                 name: superset-env
@@ -54,7 +54,7 @@ spec:
             timeoutSeconds: 1
           name: superset
           ports:
-            - containerPort: 8088
+            - containerPort: 80
               name: http
               protocol: TCP
           readinessProbe:
