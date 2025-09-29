@@ -8,19 +8,26 @@
         apiVersion: v1
         kind: Service
         metadata:
-          name: starrocks
-          namespace: starrocks
+          name: tailscale
+          namespace: druid
           annotations:
             tailscale.com/expose: "true"
         spec:
           selector:
-            app: starrocks
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
+            app: druid
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 8888
+        # spec:
+        #   selector:
+        #     app: n8n
+        #   ports: 
+        #   - name: http-port
+        #     protocol: TCP
+        #     port: 80       # Port the K8s Service listens on (the "external" port within the cluster)
+        #     targetPort: 5678 # Port the n8n Pod is listening on (the "internal" port of the application)
       ''
-
     ];
 
     helm.releases.druid = {
@@ -33,14 +40,14 @@
       };
 
       values = {
-        service = {
-          type = "NodePort";
-          port = 8888;
-          targetPort = 8888;
-          nodePort = {
-            http = 8888;
-          };
-        };
+        # service = {
+        #   type = "NodePort";
+        #   port = 8888;
+        #   targetPort = 8888;
+        #   nodePort = {
+        #     http = 8888;
+        #   };
+        # };
         # annotations = {
         #   "tailscale.com/expose" = "true";
         # };

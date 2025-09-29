@@ -44,6 +44,14 @@ in
       values = {
         starrocksFESpec = {
           replicas = 3;
+          service = {
+            type = "NodePort";
+            port = 80;
+            targetPort = 8080;
+            nodePort = {
+              http = 8080;
+            };
+          };
           # service = {
           #   type = "ClusterIP";
           #   annotations = {
