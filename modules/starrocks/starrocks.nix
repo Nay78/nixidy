@@ -48,10 +48,10 @@ in
         starrocksFESpec = {
           replicas = 3;
           service = {
-            type = "ClusterIP";
-            annotations = {
-              "tailscale.com/expose" = "true";
-            };
+            # type = "ClusterIP";
+            # annotations = {
+            #   "tailscale.com/expose" = "true";
+            # };
           };
           resources = {
             requests = {
