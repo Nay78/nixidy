@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/expose: "true"
-  name: starrocks
+  name: starrocksTailscale
   namespace: starrocks
 spec:
   selector:

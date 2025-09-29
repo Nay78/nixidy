@@ -18,7 +18,7 @@ in
         apiVersion: v1
         kind: Service
         metadata:
-          name: starrocks
+          name: starrocksTailscale
           namespace: starrocks
           annotations:
             tailscale.com/expose: "true"
