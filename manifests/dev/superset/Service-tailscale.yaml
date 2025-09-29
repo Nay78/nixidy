@@ -4,11 +4,7 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
   name: tailscale
-  namespace: n8n
+  namespace: superset
 spec:
-  ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 5678
   selector:
-    app: n8n
+    app: superset

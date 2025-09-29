@@ -15,7 +15,7 @@
         apiVersion: v1
         kind: Service
         metadata:
-          name: superset
+          name: tailscale
           namespace: superset
           annotations:
             tailscale.com/expose: "true"

@@ -19,10 +19,10 @@ in
         spec:
           selector:
             app: ${n}
-          # ports:
-          #   - protocol: TCP
-          #     port: 80
-          #     targetPort: 5678
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 5678
       ''
     ];
 
