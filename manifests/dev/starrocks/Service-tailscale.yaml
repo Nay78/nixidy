@@ -9,6 +9,6 @@ spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 8030
+      targetPort: 9030
   selector:
     app: starrocks

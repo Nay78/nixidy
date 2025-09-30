@@ -28,7 +28,7 @@ in
           ports:
             - protocol: TCP
               port: 80
-              targetPort: 8030
+              targetPort: 9030
 
       ''
 
