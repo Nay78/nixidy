@@ -38,6 +38,17 @@ in
       };
       values = {
         N8N_RUNNERS_ENABLED = true;
+        service = {
+          type = "NodePort";
+          port = 80;
+          # targetPort = 8088;
+          nodePort = {
+            http = 5678;
+          };
+          annotations = {
+            "tailscale.com/expose" = "true";
+          };
+        };
         # service = {
         #   type = "NodePort";
         #   port = 80;
