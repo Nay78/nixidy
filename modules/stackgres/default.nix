@@ -32,10 +32,10 @@
         spec:
           selector:
             app: stackgres
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 8443
       ''
     ];
 
@@ -43,7 +43,6 @@
 
     helm.releases.stackgres = {
       chart = lib.helm.downloadHelmChart {
-
         repo = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/";
         chart = "stackgres-operator";
         version = "1.17.2";

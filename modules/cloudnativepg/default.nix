@@ -22,10 +22,10 @@
         spec:
           selector:
             app: cnpg
-          # ports:
-          #   - protocol: TCP
-          #     port: 8888
-          #     targetPort: 8888
+          ports:
+            - protocol: TCP
+              port: 8888
+              targetPort: 8888
       ''
     ];
 
@@ -35,7 +35,12 @@
     helm.releases.cnpg = {
 
       # chart = charts.stackgres.stackgres;
-      chart = charts.cloudnative-pg;
+      chart = lib.helm.downloadHelmChart {
+        repo = "https://cloudnative-pg.github.io/charts";
+        chart = "cloudnative-pg";
+        version = "0.26.0";
+        chartHash = "sha256-8VgcvZqJS/jts2TJJjaj6V4BRDy56phyd0gwPs0bhnI=";
+      };
       values = {
         # instances = 3;
         #
