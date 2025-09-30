@@ -68,11 +68,22 @@ in
         # };
 
         # service.enabled = false;
+        # main.service = {
+        #   type = "";
+        #   loadBalancerClass = "tailscale";
+        #   port = 5678;
+        #   targetPort = 5678;
+        # };
         main.service = {
-          type = "LoadBalancer";
-          loadBalancerClass = "tailscale";
-          port = 5678;
-          targetPort = 5678;
+          type = "NodePort";
+          port = 80;
+          # targetPort = 8088;
+          nodePort = {
+            http = 5678;
+          };
+          annotations = {
+            "tailscale.com/expose" = "true";
+          };
         };
         # service = {
         #   type = "ClusterIP";
