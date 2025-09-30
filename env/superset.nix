@@ -11,18 +11,18 @@
 
     yamls = [
       (builtins.readFile ../sops/superset.sops.yaml)
-      ''
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: tailscale
-          namespace: superset
-          annotations:
-            tailscale.com/expose: "true"
-        spec:
-          selector:
-            app: superset
-      ''
+      # ''
+      #   apiVersion: v1
+      #   kind: Service
+      #   metadata:
+      #     name: superset
+      #     namespace: superset
+      #     annotations:
+      #       tailscale.com/expose: "true"
+      #   spec:
+      #     selector:
+      #       app: superset
+      # ''
     ];
 
     helm.releases.superset = {
@@ -69,6 +69,9 @@
           targetPort = 8088;
           nodePort = {
             http = 30088;
+          };
+          annotations = {
+            "tailscale.com/expose" = "true";
           };
         };
         # extraSecretEnv = {
