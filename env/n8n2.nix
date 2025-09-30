@@ -12,7 +12,7 @@ in
         apiVersion: v1
         kind: Service
         metadata:
-          name: tailscale
+          name: ${n}
           namespace: ${n}
           annotations:
             tailscale.com/expose: "true"
