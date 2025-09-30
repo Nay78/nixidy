@@ -15,9 +15,9 @@ spec:
   containers:
     - args:
         - |
-          echo "Testing connection to n8n:80";
+          echo "Testing connection to n8n:5678";
           nslookup n8n;
-          wget n8n:80;
+          wget n8n:5678;
       command:
         - sh
         - -c

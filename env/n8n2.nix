@@ -24,21 +24,21 @@ in
       #         port: 80
       #         targetPort: 5678
       # ''
-      ''
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: xyz
-        spec:
-          selector:
-            app: ${n}
-          type: LoadBalancer
-          loadBalancerClass: tailscale
-          ports:
-            - protocol: TCP
-              port: 5678
-              targetPort: 5678
-      ''
+      # ''
+      #   apiVersion: v1
+      #   kind: Service
+      #   metadata:
+      #     name: ${n}
+      #   spec:
+      #     selector:
+      #       app: ${n}
+      #     type: LoadBalancer
+      #     loadBalancerClass: tailscale
+      #     ports:
+      #       - protocol: TCP
+      #         port: 5678
+      #         targetPort: 5678
+      # ''
 
     ];
 
@@ -55,26 +55,25 @@ in
       values = {
         N8N_RUNNERS_ENABLED = true;
         # servise = false;
-        service = {
-          type = "LoadBalancer";
-          port = 80;
-          # targetPort = 8088;
-          nodePort = {
-            http = 5678;
-          };
-          annotations = {
-            "tailscale.com/expose" = "true";
-          };
-        };
-
         # service = {
-        #   type = "NodePort";
+        #   type = "LoadBalancer";
         #   port = 80;
-        #   targetPort = 5678;
+        #   # targetPort = 8088;
         #   nodePort = {
         #     http = 5678;
         #   };
+        #   annotations = {
+        #     "tailscale.com/expose" = "true";
+        #   };
         # };
+
+        # service.enabled = false;
+        main.service = {
+          type = "LoadBalancer";
+          loadBalancerClass = "tailscale";
+          port = 5678;
+          targetPort = 5678;
+        };
         # service = {
         #   type = "ClusterIP";
         #   annotations = {
