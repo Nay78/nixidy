@@ -40,7 +40,7 @@
       };
 
       values = {
-        service = {
+        router.service = {
           type = "NodePort";
           port = 80;
           # targetPort = 8088;

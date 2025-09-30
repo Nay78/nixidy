@@ -8,22 +8,38 @@ in
     namespace = "${n}";
     createNamespace = true;
     yamls = [
+      # ''
+      #   apiVersion: v1
+      #   kind: Service
+      #   metadata:
+      #     name: ${n}
+      #     namespace: ${n}
+      #     annotations:
+      #       tailscale.com/expose: "true"
+      #   spec:
+      #     selector:
+      #       app: ${n}
+      #     ports:
+      #       - protocol: TCP
+      #         port: 80
+      #         targetPort: 5678
+      # ''
       ''
         apiVersion: v1
         kind: Service
         metadata:
-          name: ${n}
-          namespace: ${n}
-          annotations:
-            tailscale.com/expose: "true"
+          name: xyz
         spec:
           selector:
             app: ${n}
+          type: LoadBalancer
+          loadBalancerClass: tailscale
           ports:
             - protocol: TCP
-              port: 80
+              port: 5678
               targetPort: 5678
       ''
+
     ];
 
     helm.releases.n8n = {
@@ -38,8 +54,9 @@ in
       };
       values = {
         N8N_RUNNERS_ENABLED = true;
+        # servise = false;
         service = {
-          type = "NodePort";
+          type = "LoadBalancer";
           port = 80;
           # targetPort = 8088;
           nodePort = {
@@ -49,6 +66,7 @@ in
             "tailscale.com/expose" = "true";
           };
         };
+
         # service = {
         #   type = "NodePort";
         #   port = 80;
