@@ -51,17 +51,17 @@ spec:
           livenessProbe:
             httpGet:
               path: /status/health
-              port: 8888
+              port: 80
             initialDelaySeconds: 60
           name: druid
           ports:
-            - containerPort: 8888
+            - containerPort: 80
               name: http
               protocol: TCP
           readinessProbe:
             httpGet:
               path: /status/health
-              port: 8888
+              port: 80
             initialDelaySeconds: 60
           resources: {}
       serviceAccountName: druid-router

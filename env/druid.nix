@@ -40,15 +40,13 @@
       };
 
       values = {
-        router.service = {
-          type = "NodePort";
+        router = {
           port = 80;
-          # targetPort = 8088;
-          nodePort = {
-            http = 8888;
-          };
-          annotations = {
-            "tailscale.com/expose" = "true";
+          serviceType = "NodePort";
+          serviceAccount = {
+            annotations = {
+              "tailscale.com/expose" = "true";
+            };
           };
         };
         # service = {

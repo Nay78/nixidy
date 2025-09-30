@@ -77,7 +77,7 @@ in
         main.service = {
           type = "NodePort";
           port = 80;
-          # targetPort = 8088;
+          targetPort = 5678;
           nodePort = {
             http = 5678;
           };
