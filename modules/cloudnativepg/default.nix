@@ -33,7 +33,6 @@
 
     # helm repo add cloudnative-pg https://cloudnative-pg.io/charts/
     helm.releases.cnpg = {
-
       # chart = charts.stackgres.stackgres;
       chart = lib.helm.downloadHelmChart {
         repo = "https://cloudnative-pg.github.io/charts";

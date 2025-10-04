@@ -21,16 +21,24 @@
           #     targetPort: 8888
       ''
     ];
+    #
+    #         Add repository
+    # helm repo add bitnami https://charts.bitnami.com/bitnami
+    # Install chart
+    # helm install my-flink bitnami/flink --version 2.0.7
 
     helm.releases.template = {
       chart = lib.helm.downloadHelmChart {
-        repo = "https://template.apache.orgqq/";
-        chart = "template";
-        version = "1.18.0";
-        chartHash = "sha256-RpuMs61pTLPJ61Frzir0ob6vH9ixX2ceSKclFRfv5dI=";
+        repo = "https://charts.bitnami.com/bitnami";
+        chart = "flink";
+        version = "2.0.7";
+        chartHash = "";
       };
 
       values = {
+        service = {
+
+        };
 
         # annotations = {
         #   "tailscale.com/expose" = "true";
