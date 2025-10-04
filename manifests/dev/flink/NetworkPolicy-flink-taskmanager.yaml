@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/component: taskmanager
+    app.kubernetes.io/instance: flink
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: flink
+    app.kubernetes.io/part-of: flink
+    app.kubernetes.io/version: 2.1.0
+    helm.sh/chart: flink-2.0.7
+  name: flink-taskmanager
+  namespace: flink
+spec:
+  egress:
+    - {}
+  ingress:
+    - ports:
+        - port: 6121
+        - port: 6122
+        - port: 6126
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: taskmanager
+      app.kubernetes.io/instance: flink
+      app.kubernetes.io/name: flink
+      app.kubernetes.io/part-of: flink
+  policyTypes:
+    - Ingress
+    - Egress

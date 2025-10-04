@@ -1,20 +1,20 @@
 { lib, ... }:
 {
-  applications.template = {
-    namespace = "template";
+  applications.flink = {
+    namespace = "flink";
     createNamespace = true;
     yamls = [
       # ''
       #   apiVersion: v1
       #   kind: Service
       #   metadata:
-      #     name: template
-      #     namespace: template
+      #     name: flink
+      #     namespace: flink
       #     annotations:
       #       tailscale.com/expose: "true"
       #   spec:
       #     selector:
-      #       app: template
+      #       app: flink
       #     # ports:
       #     #   - protocol: TCP
       #     #     port: 8888
@@ -22,12 +22,18 @@
       # ''
     ];
 
-    helm.releases.template = {
+    #
+    #         Add repository
+    # helm repo add bitnami https://charts.bitnami.com/bitnami
+    # Install chart
+    # helm install my-flink bitnami/flink --version 2.0.7
+
+    helm.releases.flink = {
       chart = lib.helm.downloadHelmChart {
-        repo = "https://template.apache.orgqq/";
-        chart = "template";
-        version = "1.18.0";
-        chartHash = "sha256-RpuMs61pTLPJ61Frzir0ob6vH9ixX2ceSKclFRfv5dI=";
+        repo = "https://charts.bitnami.com/bitnami";
+        chart = "flink";
+        version = "2.0.7";
+        chartHash = "sha256-6KEDONfzN6P+XqZrbSLShJpHtA6waJka3ytLYyH4iCc=";
       };
 
       values = {
