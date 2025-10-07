@@ -32,8 +32,8 @@
       chart = lib.helm.downloadHelmChart {
         repo = "https://charts.bitnami.com/bitnami";
         chart = "flink";
-        version = "2.0.7";
-        chartHash = "sha256-6KEDONfzN6P+XqZrbSLShJpHtA6waJka3ytLYyH4iCc=";
+        version = "2.0.6";
+        chartHash = "sha256-HAQT8qT8iuz0hkFtlrqsF404A6O8MEryntPk8vjld54=";
       };
 
       values = {
