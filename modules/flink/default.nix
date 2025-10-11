@@ -28,14 +28,16 @@
     # Install chart
     # helm install my-flink bitnami/flink --version 2.0.7
 
-    helm.releases.flink = {
+    # helm repo add flink-operator-repo https://downloads.apache.org/flink/flink-kubernetes-operator-1.13.0/
+    # helm install flink-kubernetes-operator flink-operator-repo/flink-kubernetes-operator
+    helm.releases.flink-kubernetes-operator = {
       chart = lib.helm.downloadHelmChart {
-        repo = "https://charts.bitnami.com/bitnami";
-        chart = "flink";
-        version = "2.0.6";
-        chartHash = "sha256-HAQT8qT8iuz0hkFtlrqsF404A6O8MEryntPk8vjld54=";
+        repo = "https://downloads.apache.org/flink/flink-kubernetes-operator-1.13.0/";
+        # repo = "https://downloads.apache.org/flink";
+        chart = "flink-kubernetes-operator";
+        version = "1.13.0";
+        chartHash = "sha256-961lpFE8b7imiKkarJ5d2+GBttvB2lj3PehbeYOjgvs=";
       };
-
       values = {
 
         service = {
