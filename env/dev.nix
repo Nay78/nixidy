@@ -39,7 +39,7 @@
 
   imports = [
     # ../modules/stackgres/default.nix
-    ../modules/cloudnativepg/default.nix
+    # ../modules/cloudnativepg/default.nix
     ../modules/starrocks/default.nix
 
     # ../modules/flink/default.nix
