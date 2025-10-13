@@ -12,8 +12,8 @@ spec:
         paths:
           - backend:
               service:
-                name: tailscale
+                name: seatunnel
                 port:
-                  number: 80
+                  number: 5801
             path: /
             pathType: Prefix

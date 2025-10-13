@@ -48,9 +48,9 @@
                     backend:
                       service:
                         # Point to your existing Service
-                        name: tailscale
+                        name: seatunnel
                         port:
-                          number: 80
+                          number: 5801
 
       ''
     ];
