@@ -54,6 +54,13 @@
         elasticsearch = {
           replicas = 1;
           esJavaOpts = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+          extraEnvs = [
+            {
+              name = "ES_JAVA_OPTS";
+              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+            }
+          ];
+
         };
         prometheus = {
           enabled = false;
