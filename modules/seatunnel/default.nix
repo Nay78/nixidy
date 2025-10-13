@@ -17,6 +17,8 @@
           selector:
             # app: seatunnel
             app.kubernetes.io/instance: seatunnel
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/version: "2.3.10"
           ports:
             - protocol: TCP
               port: 5801

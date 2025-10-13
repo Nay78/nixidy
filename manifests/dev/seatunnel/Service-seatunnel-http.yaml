@@ -10,3 +10,5 @@ spec:
       targetPort: 5801
   selector:
     app.kubernetes.io/instance: seatunnel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 2.3.10
