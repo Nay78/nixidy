@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: temporal
     app.kubernetes.io/part-of: temporal
-    app.kubernetes.io/version: 1.28.1
-    helm.sh/chart: temporal-0.65.0
+    app.kubernetes.io/version: 1.29.0
+    helm.sh/chart: temporal-0.68.1
   name: temporalio-schema-1
   namespace: temporal
 spec:
@@ -21,8 +21,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: temporal
         app.kubernetes.io/part-of: temporal
-        app.kubernetes.io/version: 1.28.1
-        helm.sh/chart: temporal-0.65.0
+        app.kubernetes.io/version: 1.29.0
+        helm.sh/chart: temporal-0.68.1
       name: temporalio-schema-1
     spec:
       containers:
@@ -30,7 +30,7 @@ spec:
             - sh
             - -c
             - echo "Store setup completed"
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: done
       initContainers:
@@ -63,7 +63,7 @@ spec:
               value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: check-elasticsearch
         - command:
@@ -87,7 +87,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: temporalio-default-store
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: create-default-store
         - command:
@@ -109,7 +109,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: temporalio-default-store
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: setup-default-store
         - args:
@@ -135,7 +135,7 @@ spec:
               value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: setup-visibility-store
         - command:
@@ -157,7 +157,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: temporalio-default-store
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: update-default-store
       restartPolicy: OnFailure

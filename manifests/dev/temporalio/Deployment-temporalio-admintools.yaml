@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: temporal
     app.kubernetes.io/part-of: temporal
-    app.kubernetes.io/version: 1.28.1
-    helm.sh/chart: temporal-0.65.0
+    app.kubernetes.io/version: 1.29.0
+    helm.sh/chart: temporal-0.68.1
   name: temporalio-admintools
   namespace: temporal
 spec:
@@ -26,8 +26,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: temporal
         app.kubernetes.io/part-of: temporal
-        app.kubernetes.io/version: 1.28.1
-        helm.sh/chart: temporal-0.65.0
+        app.kubernetes.io/version: 1.29.0
+        helm.sh/chart: temporal-0.68.1
     spec:
       containers:
         - env:
@@ -35,7 +35,7 @@ spec:
               value: temporalio-frontend:7233
             - name: TEMPORAL_ADDRESS
               value: temporalio-frontend:7233
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:

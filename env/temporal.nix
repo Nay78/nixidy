@@ -20,8 +20,8 @@
       chart = lib.helm.downloadHelmChart {
         repo = "https://temporalio.github.io/helm-charts";
         chart = "temporal";
-        version = "0.65.0";
-        chartHash = "sha256-L664DQpVHdpCoiHCWAVd3/ySPW3/afG4L4ojPLOvYEI=";
+        version = "0.68.1";
+        chartHash = "sha256-OmBIGdbJkGnpsmbT2mbZcBmg4vfyaCSN9hTuTCjftRQ=";
       };
 
       values = {

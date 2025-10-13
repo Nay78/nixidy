@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: temporal
     app.kubernetes.io/part-of: temporal
-    app.kubernetes.io/version: 1.28.1
-    helm.sh/chart: temporal-0.65.0
+    app.kubernetes.io/version: 1.29.0
+    helm.sh/chart: temporal-0.68.1
   name: temporalio-history
   namespace: temporal
 spec:
@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a129ca9081f68c11dddee83a64a142099727f52e5e0e91778703c4e31c9b5f76
+        checksum/config: 519ff533923265f6acc7a9882ac2a04aab4ac5ebdb5600a818c8be8f94ac85bc
         prometheus.io/job: temporal-history
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
@@ -31,8 +31,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: temporal
         app.kubernetes.io/part-of: temporal
-        app.kubernetes.io/version: 1.28.1
-        helm.sh/chart: temporal-0.65.0
+        app.kubernetes.io/version: 1.29.0
+        helm.sh/chart: temporal-0.68.1
     spec:
       containers:
         - env:
@@ -52,7 +52,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: temporalio-visibility-store
-          image: temporalio/server:1.28.1
+          image: temporalio/server:1.29.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             initialDelaySeconds: 150
@@ -113,7 +113,7 @@ spec:
               value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1
+          image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: check-elasticsearch-index
       securityContext:
