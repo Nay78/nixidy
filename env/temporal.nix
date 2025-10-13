@@ -4,6 +4,16 @@
     namespace = "temporal";
     createNamespace = true;
 
+    # helm install \
+    #     --repo https://go.temporal.io/helm-charts \
+    #     --set server.replicaCount=1 \
+    #     --set cassandra.config.cluster_size=1 \
+    #     --set elasticsearch.replicas=1 \
+    #     --set prometheus.enabled=false \
+    #     --set grafana.enabled=false \
+    #     temporaltest temporal \
+    #     --timeout 15m
+
     helm.releases.temporalio = {
       # Use `lib.helm.downloadHelmChart` to fetch
       # the Helm Chart to use.

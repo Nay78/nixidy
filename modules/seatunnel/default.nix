@@ -1,4 +1,9 @@
 { lib, ... }:
+let
+  starrocksConf = builtins.readFile /home/alejg/projects/nixidy/jobs/seatunnel/starrocks/job.conf;
+  # confHash = builtins.hashString "sha256" starrocksConf;
+in
+
 {
   #        error: The option `applications.seatunnel.resources.core.v1.Service.seatunnel.metadata.namespace` is defined both null and not null, in `/nix/store/5n18yk7slwnnw3yfq6di7fq761irnjk2-source/modules/applicati
   # ons/yamls.nix' and `/nix/store/5n18yk7slwnnw3yfq6di7fq761irnjk2-source/modules/applications/helm.nix'.
@@ -8,6 +13,16 @@
     namespace = "seatunnel";
     createNamespace = true;
     yamls = [
+      ''
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: seatunnel-starrocks-job
+        data:
+          job.conf: |
+        ${lib.strings.indent 12 starrocksConf}
+      ''
+
       ''
         apiVersion: v1
         kind: Service
@@ -21,6 +36,7 @@
             app.kubernetes.io/version: "2.3.10"
           ports:
             - protocol: TCP
+              # name: http
               port: 5801
               targetPort: 5801
       ''
@@ -33,6 +49,7 @@
             tailscale.com/hostname: seatunnel
         spec:
           ingressClassName: tailscale
+
           rules:
             - http:
                 paths:

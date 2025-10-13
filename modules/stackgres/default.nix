@@ -1,4 +1,8 @@
 { lib, ... }:
+let
+  starrocksConf = builtins.readFile /home/alejg/projects/nixidy/jobs/seatunnel/starrocks/job.conf;
+  # confHash = builtins.hashString "sha256" starrocksConf;
+in
 
 # let
 #   stackgres-crd = builtins.fetchurl {
