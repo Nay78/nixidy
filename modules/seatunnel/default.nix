@@ -8,36 +8,26 @@
     namespace = "seatunnel";
     createNamespace = true;
     yamls = [
-      # ''
-      #   apiVersion: v1
-      #   kind: Service
-      #   metadata:
-      #     name: tailscale
-      #     namespace: seatunnel
-      #     annotations:
-      #       tailscale.com/hostname: seatunnel
-      #       tailscale.com/expose: "true"
-      #   spec:
-      #     selector:
-      #       app: seatunnel
-      #     ports:
-      #       - protocol: TCP
-      #         port: 80
-      #         targetPort: 5801
-      # ''
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: seatunnel-http
+        spec:
+          selector:
+            app: seatunnel
+          ports:
+            - protocol: TCP
+              port: 5801
+              targetPort: 5801
+      ''
       ''
         apiVersion: networking.k8s.io/v1
         kind: Ingress
         metadata:
           name: seatunnel
-          namespace: seatunnel
           annotations:
-            # Optional: customize the device name in your tailnet
             tailscale.com/hostname: seatunnel
-            # Optional: tag the Tailscale device
-            # tailscale.com/tags: tag:k8s
-            # Optional: set to "true" to expose publicly via Funnel
-            # tailscale.com/funnel: "false"
         spec:
           ingressClassName: tailscale
           rules:
@@ -47,11 +37,9 @@
                     pathType: Prefix
                     backend:
                       service:
-                        # Point to your existing Service
-                        name: seatunnel
+                        name: seatunnel-http
                         port:
                           number: 5801
-
       ''
     ];
 
