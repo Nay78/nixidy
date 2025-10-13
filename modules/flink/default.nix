@@ -4,23 +4,40 @@
     namespace = "flink";
     createNamespace = true;
     yamls = [
-      # ''
-      #   apiVersion: v1
-      #   kind: Service
-      #   metadata:
-      #     name: flink
-      #     namespace: flink
-      #     annotations:
-      #       tailscale.com/expose: "true"
-      #   spec:
-      #     selector:
-      #       app: flink
-      #     # ports:
-      #     #   - protocol: TCP
-      #     #     port: 8888
-      #     #     targetPort: 8888
-      # ''
+      ''
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: cnpg
+          namespace: cnpg
+          annotations:
+            tailscale.com/expose: "true"
+        spec:
+          selector:
+            app: cnpg
+          ports:
+            - protocol: TCP
+              port: 8233
+              targetPort: 8233
+      ''
     ];
+
+    # ''
+    #   apiVersion: v1
+    #   kind: Service
+    #   metadata:
+    #     name: flink
+    #     namespace: flink
+    #     annotations:
+    #       tailscale.com/expose: "true"
+    #   spec:
+    #     selector:
+    #       app: flink
+    #     # ports:
+    #     #   - protocol: TCP
+    #     #     port: 8888
+    #     #     targetPort: 8888
+    # ''
 
     #
     #         Add repository

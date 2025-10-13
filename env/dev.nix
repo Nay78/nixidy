@@ -41,6 +41,7 @@
     # ../modules/stackgres/default.nix
     # ../modules/cloudnativepg/default.nix
     ../modules/starrocks/default.nix
+    ../modules/temporalio/default.nix
     # ../modules/seatunnel/default.nix
 
     # ../modules/flink/default.nix
@@ -54,7 +55,7 @@
     # ./n8n2.nix
     # ./sealed-secrets.nix
     ./sops-secrets-operator.nix
-    ./temporal.nix
+    # ./temporal.nix
     # ./druid.nix
     # ./airflow.nix
     ./tailscale.nix

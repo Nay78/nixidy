@@ -15,16 +15,6 @@ in
     yamls = [
       ''
         apiVersion: v1
-        kind: ConfigMap
-        metadata:
-          name: seatunnel-starrocks-job
-        data:
-          job.conf: |
-        ${lib.strings.indent 12 starrocksConf}
-      ''
-
-      ''
-        apiVersion: v1
         kind: Service
         metadata:
           name: seatunnel-http
