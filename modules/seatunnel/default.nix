@@ -15,7 +15,8 @@
           name: seatunnel-http
         spec:
           selector:
-            app: seatunnel
+            # app: seatunnel
+            app.kubernetes.io/instance: seatunnel
           ports:
             - protocol: TCP
               port: 5801
