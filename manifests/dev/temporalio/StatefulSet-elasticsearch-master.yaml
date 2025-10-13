@@ -52,6 +52,8 @@ spec:
               value: 0.0.0.0
             - name: cluster.deprecation_indexing.enabled
               value: "false"
+            - name: ES_JAVA_OPTS
+              value: -Dlog4j2.disable.jmx=true -XX:-UseContainerSupport
             - name: node.data
               value: "true"
             - name: node.ingest

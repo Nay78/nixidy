@@ -35,6 +35,7 @@
         };
         elasticsearch = {
           replicas = 1;
+          esJavaOpts = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
         };
         prometheus = {
           enabled = false;
