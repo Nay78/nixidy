@@ -52,15 +52,31 @@
           };
         };
         elasticsearch = {
+          enabled = true;
           replicas = 1;
           esJavaOpts = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+          # Cover charts that read extraEnvs
           extraEnvs = [
             {
               name = "ES_JAVA_OPTS";
               value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
             }
+            {
+              name = "JAVA_TOOL_OPTIONS";
+              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+            }
           ];
-
+          # Cover charts that read extraEnvVars (Bitnami)
+          extraEnvVars = [
+            {
+              name = "ES_JAVA_OPTS";
+              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+            }
+            {
+              name = "JAVA_TOOL_OPTIONS";
+              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
+            }
+          ];
         };
         prometheus = {
           enabled = false;

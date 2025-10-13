@@ -64,6 +64,8 @@ spec:
               value: "true"
             - name: node.remote_cluster_client
               value: "true"
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dlog4j2.disable.jmx=true -XX:-UseContainerSupport
           image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
           imagePullPolicy: IfNotPresent
           name: elasticsearch
