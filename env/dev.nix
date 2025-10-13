@@ -41,6 +41,7 @@
     # ../modules/stackgres/default.nix
     # ../modules/cloudnativepg/default.nix
     ../modules/starrocks/default.nix
+    ../modules/seatunnel/default.nix
 
     # ../modules/flink/default.nix
     # ../modules/cert-manager/default.nix

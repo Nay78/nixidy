@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: master
+    app.kubernetes.io/instance: seatunnel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: seatunnel-master
+    app.kubernetes.io/version: 2.3.10
+  name: seatunnel-master
+  namespace: seatunnel
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: master
+      app.kubernetes.io/instance: seatunnel
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: seatunnel-master
+      app.kubernetes.io/version: 2.3.10
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /hazelcast/rest/instance/metrics
+        prometheus.io/port: "5801"
+        prometheus.io/role: seatunnel-master
+        prometheus.io/scrape: "true"
+      labels:
+        app.kubernetes.io/component: master
+        app.kubernetes.io/instance: seatunnel
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: seatunnel-master
+        app.kubernetes.io/version: 2.3.10
+    spec:
+      containers:
+        - command:
+            - /bin/sh
+            - -c
+            - /opt/seatunnel/bin/seatunnel-cluster.sh -r master
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          image: apache/seatunnel:2.3.10
+          imagePullPolicy: IfNotPresent
+          name: seatunnel-master
+          ports:
+            - containerPort: 5801
+              name: hazelcast-port
+            - containerPort: 8080
+              name: master-port
+          volumeMounts:
+            - mountPath: /opt/seatunnel/config/hazelcast-client.yaml
+              name: seatunnel-configs
+              subPath: hazelcast-client.yaml
+            - mountPath: /opt/seatunnel/config/hazelcast-master.yaml
+              name: seatunnel-configs
+              subPath: hazelcast-master.yaml
+            - mountPath: /opt/seatunnel/config/hazelcast-worker.yaml
+              name: seatunnel-configs
+              subPath: hazelcast-worker.yaml
+            - mountPath: /opt/seatunnel/config/jvm_client_options
+              name: seatunnel-configs
+              subPath: jvm_client_options
+            - mountPath: /opt/seatunnel/config/jvm_master_options
+              name: seatunnel-configs
+              subPath: jvm_master_options
+            - mountPath: /opt/seatunnel/config/jvm_worker_options
+              name: seatunnel-configs
+              subPath: jvm_worker_options
+            - mountPath: /opt/seatunnel/config/log4j2.properties
+              name: seatunnel-configs
+              subPath: log4j2.properties
+            - mountPath: /opt/seatunnel/config/seatunnel.yaml
+              name: seatunnel-configs
+              subPath: seatunnel.yaml
+      serviceAccountName: seatunnel
+      volumes:
+        - configMap:
+            name: seatunnel-configs
+          name: seatunnel-configs

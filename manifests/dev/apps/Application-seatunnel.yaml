@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seatunnel
+  namespace: argocd
+spec:
+  destination:
+    namespace: seatunnel
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: ./manifests/dev/seatunnel
+    repoURL: https://github.com/Nay78/nixidy
+    targetRevision: main
+  syncPolicy: {}

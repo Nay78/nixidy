@@ -1,0 +1,18 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app: seatunnel
+    chart: seatunnel-helm-2.3.10
+    release: seatunnel
+  name: seatunnel
+  namespace: seatunnel
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - watch
+      - list

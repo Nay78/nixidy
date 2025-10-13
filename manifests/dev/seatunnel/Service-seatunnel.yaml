@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: seatunnel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 2.3.10
+  name: seatunnel
+spec:
+  clusterIP: None
+  ports:
+    - name: hazelcast-port
+      port: 5801
+  selector:
+    app.kubernetes.io/instance: seatunnel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 2.3.10
+  type: ClusterIP
