@@ -69,7 +69,9 @@
           enabled = true;
         };
         elasticsearch = {
+
           enabled = true;
+          replicaCount = 1;
           # imageTag = "8.19.5";
           imageTag = "7.17.29";
           # 7.17.3
