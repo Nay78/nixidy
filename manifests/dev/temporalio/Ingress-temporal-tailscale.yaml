@@ -18,13 +18,3 @@ spec:
                   number: 8080
             path: /
             pathType: Prefix
-    - host: temporal-grpc.taila1b08a.ts.net
-      http:
-        paths:
-          - backend:
-              service:
-                name: temporal-frontend
-                port:
-                  number: 7233
-            path: /
-            pathType: Prefix
