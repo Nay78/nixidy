@@ -139,6 +139,9 @@
 
           # Create the visibility database alongside the main one
           primary = {
+            persistence = {
+              enabled = true;
+            };
             initdb = {
               scripts = {
                 createVisibilityDB = ''
