@@ -79,7 +79,7 @@
 
             {
               name = "TEMPORAL_UI_PORT";
-              value = "7233";
+              value = "8080";
             }
             {
               name = "TEMPORAL_CSRF_COOKIE_INSECURE";
