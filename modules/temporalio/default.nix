@@ -104,7 +104,7 @@
             enabled = true;
           };
           update = {
-            enabled = false;
+            enabled = true;
           };
         };
 
