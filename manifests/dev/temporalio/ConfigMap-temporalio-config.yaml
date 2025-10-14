@@ -28,7 +28,7 @@ data:
             url:
                 scheme: "http"
                 host: "elasticsearch-master-headless:9200"
-            username: ""
+            username: "elastic"
             password: {{ .Env.TEMPORAL_VISIBILITY_STORE_PASSWORD  | quote }}
             logLevel: "error"
             indices:

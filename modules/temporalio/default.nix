@@ -81,11 +81,14 @@
           imageTag = "7.17.29";
           # 7.17.3
           # external = true;
-          # host = "elasticsearch-master-headless";
-          # port = "9200";
-          # version = "v8";
-          # scheme = "http";
-          # logLevel = "error";
+          host = "elasticsearch-master-headless";
+          port = "9200";
+          version = "v7";
+          scheme = "http";
+          logLevel = "error";
+          username = "elastic";
+          password = "elasticsearch";
+
         };
         prometheus = {
           enabled = false;

@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 519ff533923265f6acc7a9882ac2a04aab4ac5ebdb5600a818c8be8f94ac85bc
+        checksum/config: 1d8d2722d1e5ff21daea696e44a1dd653d22be189c8072770f16d3e8398b0654
         prometheus.io/job: temporal-worker
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
@@ -96,7 +96,7 @@ spec:
             - name: ES_PORT
               value: "9200"
             - name: ES_USER
-              value: ""
+              value: elastic
             - name: ES_PWD
               valueFrom:
                 secretKeyRef:

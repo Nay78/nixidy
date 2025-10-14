@@ -53,7 +53,7 @@ spec:
             - name: ES_PORT
               value: "9200"
             - name: ES_USER
-              value: ""
+              value: elastic
             - name: ES_PWD
               valueFrom:
                 secretKeyRef:
@@ -125,7 +125,7 @@ spec:
             - name: ES_PORT
               value: "9200"
             - name: ES_USER
-              value: ""
+              value: elastic
             - name: ES_PWD
               valueFrom:
                 secretKeyRef:
