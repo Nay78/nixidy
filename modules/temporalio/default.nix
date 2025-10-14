@@ -64,95 +64,18 @@
       values = {
         server = {
           replicaCount = 1;
-          config = {
-            persistence = {
-              enabled = true;
-              default = {
-                driver = "sql";
-                sql = {
-                  driver = "postgres12";
-                  host = "temporal-postgresql"; # internal Postgres (see postgresql.fullnameOverride)
-                  port = 5432;
-                  database = "temporal";
-                  user = "_USERNAME_";
-                  password = "_PASSWORD_";
-                  # for production use an existing secret instead of `password`
-                  # existingSecret = "temporal-default-store";
-                  maxConns = 20;
-                  maxIdleConns = 20;
-                  maxConnLifetime = "1h";
-                  # tls = {
-                  #   enabled = true;
-                  #   enableHostVerification = true;
-                  #   serverName = "temporal-postgresql";
-                  #   caFile = "/path/to/certs/<CA-file>";
-                  #   certFile = "/path/to/certs/<client-cert-file>";
-                  #   keyFile = "/path/to/certs/<client-key-file>";
-                  # };
-                };
-              };
-              visibility = {
-                driver = "sql";
-                sql = {
-                  driver = "postgres12";
-                  host = "temporal-postgresql"; # internal Postgres
-                  port = 5432;
-                  database = "temporal_visibility";
-                  user = "_USERNAME_";
-                  password = "_PASSWORD_";
-                  # for production use an existing secret instead of `password`
-                  # existingSecret = "temporal-visibility-store";
-                  maxConns = 20;
-                  maxIdleConns = 20;
-                  maxConnLifetime = "1h";
-                  # tls = {
-                  #   enabled = true;
-                  #   enableHostVerification = true;
-                  #   serverName = "temporal-postgresql";
-                  #   caFile = "/path/to/certs/<CA-file>";
-                  #   certFile = "/path/to/certs/<client-cert-file>";
-                  #   keyFile = "/path/to/certs/<client-key-file>";
-                  # };
-                };
-              };
-            };
-          };
         };
         cassandra = {
-          enabled = false;
-        };
-        mysql = {
-          enabled = false;
-        };
-        postgresql = {
           enabled = true;
-
-          # Fix the service name so we can reference it from server.config.persistence.sql.host
-          fullnameOverride = "temporal-postgresql";
-
-          # Auth must match the credentials used above
-          auth = {
-            username = "_USERNAME_";
-            password = "_PASSWORD_";
-            database = "temporal";
-          };
-
-          # Create the visibility database alongside the main one
-          primary = {
-            persistence = {
-              enabled = true;
-            };
-            initdb = {
-              scripts = {
-                createVisibilityDB = ''
-                  CREATE DATABASE temporal_visibility;
-                '';
-              };
-            };
-          };
         };
         elasticsearch = {
           enabled = false;
+          external = true;
+          host = "elasticsearch-master-headless";
+          port = "9200";
+          version = "v8";
+          scheme = "http";
+          logLevel = "error";
         };
         prometheus = {
           enabled = false;
@@ -165,10 +88,10 @@
             enabled = true;
           };
           setup = {
-            enabled = false;
+            enabled = true;
           };
           update = {
-            enabled = false;
+            enabled = true;
           };
         };
 

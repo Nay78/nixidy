@@ -11,31 +11,28 @@ data:
       numHistoryShards: 512
       datastores:
         default:
-          sql:
-            pluginName: "postgres12"
-            driverName: "postgres12"
-            databaseName: "temporal"
-            connectAddr: "temporal-postgresql:5432"
-            connectProtocol: "tcp"
-            user: _USERNAME_
+          cassandra:
+            hosts: "temporalio-cassandra.temporal,temporalio-cassandra.temporal,temporalio-cassandra.temporal,"
+            port: 9042
             password: {{ .Env.TEMPORAL_STORE_PASSWORD | quote }}
-            maxConnLifetime: 1h
-            maxConns: 20
-            maxIdleConns: 20
-            secretName: ""
+            consistency:
+              default:
+                consistency: local_quorum
+                serialConsistency: local_serial
+            keyspace: temporal
+            replicationFactor: 1
+            user: user
         visibility:
-          sql:
-            pluginName: "postgres12"
-            driverName: "postgres12"
-            databaseName: "temporal_visibility"
-            connectAddr: "temporal-postgresql:5432"
-            connectProtocol: "tcp"
-            user: "_USERNAME_"
+          elasticsearch:
+            version: "v8"
+            url:
+                scheme: "http"
+                host: "elasticsearch-master-headless:9200"
+            username: ""
             password: {{ .Env.TEMPORAL_VISIBILITY_STORE_PASSWORD  | quote }}
-            maxConnLifetime: 1h
-            maxConns: 20
-            maxIdleConns: 20
-            secretName: ""
+            logLevel: "error"
+            indices:
+                visibility: "temporal_visibility_v1_dev"
 
     global:
       membership:

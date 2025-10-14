@@ -35,20 +35,29 @@ spec:
           name: done
       initContainers:
         - command:
-            - temporal-sql-tool
-            - create-database
+            - sh
+            - -c
+            - until cqlsh temporalio-cassandra.temporal 9042 -e "SHOW VERSION"; do echo waiting for cassandra to start; sleep 1; done;
+          image: cassandra:3.11.3
+          imagePullPolicy: IfNotPresent
+          name: check-cassandra
+        - command:
+            - temporal-cassandra-tool
+            - create
+            - -k
+            - temporal
+            - --replication-factor
+            - "1"
           env:
-            - name: SQL_PLUGIN
-              value: postgres12
-            - name: SQL_HOST
-              value: temporal-postgresql
-            - name: SQL_PORT
-              value: "5432"
-            - name: SQL_DATABASE
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
               value: temporal
-            - name: SQL_USER
-              value: _USERNAME_
-            - name: SQL_PASSWORD
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: password
@@ -57,27 +66,75 @@ spec:
           imagePullPolicy: IfNotPresent
           name: create-default-store
         - command:
-            - temporal-sql-tool
-            - create-database
+            - temporal-cassandra-tool
+            - setup-schema
+            - -v
+            - "0.0"
           env:
-            - name: SQL_PLUGIN
-              value: postgres12
-            - name: SQL_HOST
-              value: temporal-postgresql
-            - name: SQL_PORT
-              value: "5432"
-            - name: SQL_DATABASE
-              value: temporal_visibility
-            - name: SQL_USER
-              value: _USERNAME_
-            - name: SQL_PASSWORD
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
+              value: temporal
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: temporalio-default-store
+          image: temporalio/admin-tools:1.29
+          imagePullPolicy: IfNotPresent
+          name: setup-default-store
+        - args:
+            - 'curl -X PUT --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/_template/temporal_visibility_v1_template -H "Content-Type: application/json" --data-binary "@schema/elasticsearch/visibility/index_template_$ES_VERSION.json" 2>&1 && curl --head --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1 || curl -X PUT --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1'
+          command:
+            - sh
+            - -c
+          env:
+            - name: ES_SCHEME
+              value: http
+            - name: ES_HOST
+              value: elasticsearch-master-headless
+            - name: ES_PORT
+              value: "9200"
+            - name: ES_USER
+              value: ""
+            - name: ES_PWD
               valueFrom:
                 secretKeyRef:
                   key: password
                   name: temporalio-visibility-store
+            - name: ES_VERSION
+              value: v8
+            - name: ES_VISIBILITY_INDEX
+              value: temporal_visibility_v1_dev
           image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
-          name: create-visibility-store
+          name: setup-visibility-store
+        - command:
+            - temporal-cassandra-tool
+            - update-schema
+            - --schema-dir
+            - /etc/temporal/schema/cassandra/temporal/versioned
+          env:
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
+              value: temporal
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: temporalio-default-store
+          image: temporalio/admin-tools:1.29
+          imagePullPolicy: IfNotPresent
+          name: update-default-store
       restartPolicy: OnFailure
       serviceAccountName: default
   ttlSecondsAfterFinished: 86400
