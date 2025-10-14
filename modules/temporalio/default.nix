@@ -62,18 +62,18 @@
         grafana = {
           enabled = false;
         };
-        web = {
-          additionalEnv = [
-            # {
-            #   name = "TEMPORAL_CORS_ORIGINS";
-            #   value = "temporal-ui:8080";
-            # }
-            {
-              name = "TEMPORAL_CSRF_COOKIE_INSECURE";
-              value = "true";
-            }
-          ];
-        };
+        # web = {
+        #   additionalEnv = [
+        #     # {
+        #     #   name = "TEMPORAL_CORS_ORIGINS";
+        #     #   value = "temporal-ui:8080";
+        #     # }
+        #     {
+        #       name = "TEMPORAL_CSRF_COOKIE_INSECURE";
+        #       value = "true";
+        #     }
+        #   ];
+        # };
         schema = {
           createDatabase = {
             enabled = true;
