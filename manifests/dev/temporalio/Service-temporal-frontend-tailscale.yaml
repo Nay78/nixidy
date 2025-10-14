@@ -7,7 +7,8 @@ metadata:
   namespace: temporal
 spec:
   ports:
-    - port: 7233
+    - name: grpc
+      port: 7233
       protocol: TCP
       targetPort: 7233
   selector:

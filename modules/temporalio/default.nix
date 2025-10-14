@@ -18,9 +18,14 @@
             app.kubernetes.io/name: temporal
             app.kubernetes.io/component: frontend
           ports:
-            - protocol: TCP
+            - name: grpc
+              protocol: TCP
               port: 7233
               targetPort: 7233
+            - name: grpc
+              protocol: TCP
+              port: 8233
+              targetPort: 8233
       ''
       # ''
       #   apiVersion: v1
