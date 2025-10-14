@@ -66,7 +66,7 @@
           additionalEnv = [
             {
               name = "TEMPORAL_CORS_ORIGINS";
-              value = "http://temporal-ui:8080";
+              value = "temporal-ui:8080";
             }
             # {
             #   name = "TEMPORAL_CSRF_COOKIE_INSECURE";
