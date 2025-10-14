@@ -28,7 +28,8 @@ metadata:
 spec:
   ingressClassName: tailscale
   rules:
-    - host: temporal-ui
+    # n8n.taila1b08a.ts.net
+    - host: temporal-ui.taila1b08a.ts.net
       http:
         paths:
           - path: /
@@ -38,7 +39,7 @@ spec:
                 name: temporal-web
                 port:
                   number: 8080
-    - host: temporal-grpc
+    - host: temporal-grpc.taila1b08a.ts.net
       http:
         paths:
           - path: /

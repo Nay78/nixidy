@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: tailscale
   rules:
-    - host: temporal-ui
+    - host: temporal-ui.taila1b08a.ts.net
       http:
         paths:
           - backend:
@@ -18,7 +18,7 @@ spec:
                   number: 8080
             path: /
             pathType: Prefix
-    - host: temporal-grpc
+    - host: temporal-grpc.taila1b08a.ts.net
       http:
         paths:
           - backend:
