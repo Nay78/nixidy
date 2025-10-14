@@ -71,6 +71,8 @@
         elasticsearch = {
           enabled = true;
           imageTag = "8.19.5";
+          # imageTag = "7.17.29";
+          # 7.17.3
           # external = true;
           # host = "elasticsearch-master-headless";
           # port = "9200";
@@ -84,17 +86,17 @@
         grafana = {
           enabled = false;
         };
-        schema = {
-          createDatabase = {
-            enabled = true;
-          };
-          setup = {
-            enabled = true;
-          };
-          update = {
-            enabled = true;
-          };
-        };
+        # schema = {
+        #   createDatabase = {
+        #     enabled = true;
+        #   };
+        #   setup = {
+        #     enabled = true;
+        #   };
+        #   update = {
+        #     enabled = true;
+        #   };
+        # };
 
       };
     };
