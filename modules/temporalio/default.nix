@@ -69,8 +69,8 @@
           enabled = true;
         };
         elasticsearch = {
-          enabled = false;
-          external = true;
+          enabled = true;
+          # external = true;
           host = "elasticsearch-master-headless";
           port = "9200";
           version = "v8";

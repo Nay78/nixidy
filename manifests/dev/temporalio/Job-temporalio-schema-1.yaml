@@ -42,6 +42,31 @@ spec:
           imagePullPolicy: IfNotPresent
           name: check-cassandra
         - command:
+            - sh
+            - -c
+            - until curl --silent --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT 2>&1 > /dev/null; do echo waiting for elasticsearch to start; sleep 1; done;
+          env:
+            - name: ES_SCHEME
+              value: http
+            - name: ES_HOST
+              value: elasticsearch-master-headless
+            - name: ES_PORT
+              value: "9200"
+            - name: ES_USER
+              value: ""
+            - name: ES_PWD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: temporalio-visibility-store
+            - name: ES_VERSION
+              value: v8
+            - name: ES_VISIBILITY_INDEX
+              value: temporal_visibility_v1_dev
+          image: temporalio/admin-tools:1.29
+          imagePullPolicy: IfNotPresent
+          name: check-elasticsearch
+        - command:
             - temporal-cassandra-tool
             - create
             - -k
