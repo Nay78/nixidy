@@ -3,15 +3,17 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/expose: "true"
+    tailscale.com/hostname: temporal-ui
   name: temporal-ui
   namespace: temporal
 spec:
   ports:
-    - name: ui
+    - name: http
       port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
-    app.kubernetes.io/component: frontend
+    app.kubernetes.io/component: web
     app.kubernetes.io/instance: temporalio
     app.kubernetes.io/name: temporal
+  type: ClusterIP

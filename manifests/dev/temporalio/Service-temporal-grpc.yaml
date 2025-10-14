@@ -3,6 +3,7 @@ kind: Service
 metadata:
   annotations:
     tailscale.com/expose: "true"
+    tailscale.com/hostname: temporal-grpc
   name: temporal-grpc
   namespace: temporal
 spec:
@@ -15,3 +16,4 @@ spec:
     app.kubernetes.io/component: frontend
     app.kubernetes.io/instance: temporalio
     app.kubernetes.io/name: temporal
+  type: ClusterIP
