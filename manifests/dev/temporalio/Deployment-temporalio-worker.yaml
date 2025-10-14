@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: cf370bfc24fbdc19d73ac89b234ea75cdb597e26582422e44c413dc2e524eabd
+        checksum/config: 519ff533923265f6acc7a9882ac2a04aab4ac5ebdb5600a818c8be8f94ac85bc
         prometheus.io/job: temporal-worker
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"

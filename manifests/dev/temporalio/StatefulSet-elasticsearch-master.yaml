@@ -12,7 +12,7 @@ metadata:
   namespace: temporal
 spec:
   podManagementPolicy: Parallel
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: elasticsearch-master
@@ -43,7 +43,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: cluster.initial_master_nodes
-              value: elasticsearch-master-0,elasticsearch-master-1,elasticsearch-master-2,
+              value: elasticsearch-master-0,
             - name: discovery.seed_hosts
               value: elasticsearch-master-headless
             - name: cluster.name

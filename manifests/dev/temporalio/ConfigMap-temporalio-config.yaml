@@ -12,7 +12,7 @@ data:
       datastores:
         default:
           cassandra:
-            hosts: "temporalio-cassandra.temporal,temporalio-cassandra.temporal,temporalio-cassandra.temporal,"
+            hosts: "temporalio-cassandra.temporal,"
             port: 9042
             password: {{ .Env.TEMPORAL_STORE_PASSWORD | quote }}
             consistency:

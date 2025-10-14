@@ -138,28 +138,6 @@ spec:
           image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: setup-visibility-store
-        - command:
-            - temporal-cassandra-tool
-            - update-schema
-            - --schema-dir
-            - /etc/temporal/schema/cassandra/temporal/versioned
-          env:
-            - name: CASSANDRA_HOST
-              value: temporalio-cassandra.temporal
-            - name: CASSANDRA_PORT
-              value: "9042"
-            - name: CASSANDRA_KEYSPACE
-              value: temporal
-            - name: CASSANDRA_USER
-              value: user
-            - name: CASSANDRA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: temporalio-default-store
-          image: temporalio/admin-tools:1.29
-          imagePullPolicy: IfNotPresent
-          name: update-default-store
       restartPolicy: OnFailure
       serviceAccountName: default
   ttlSecondsAfterFinished: 86400
