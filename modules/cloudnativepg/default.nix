@@ -28,6 +28,7 @@
               targetPort: 8888
       ''
     ];
+        ];
 
     # allowVolumeExpansion = true;
 

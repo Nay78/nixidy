@@ -45,44 +45,108 @@
       values = {
         server = {
           replicaCount = 1;
+          config = {
+            persistence = {
+              default = {
+                driver = "sql";
+                sql = {
+                  driver = "postgres12";
+                  host = "temporal-postgresql"; # internal Postgres (see postgresql.fullnameOverride)
+                  port = 5432;
+                  database = "temporal";
+                  user = "_USERNAME_";
+                  password = "_PASSWORD_";
+                  # for production use an existing secret instead of `password`
+                  # existingSecret = "temporal-default-store";
+                  maxConns = 20;
+                  maxIdleConns = 20;
+                  maxConnLifetime = "1h";
+                  # tls = {
+                  #   enabled = true;
+                  #   enableHostVerification = true;
+                  #   serverName = "temporal-postgresql";
+                  #   caFile = "/path/to/certs/<CA-file>";
+                  #   certFile = "/path/to/certs/<client-cert-file>";
+                  #   keyFile = "/path/to/certs/<client-key-file>";
+                  # };
+                };
+              };
+              visibility = {
+                driver = "sql";
+                sql = {
+                  driver = "postgres12";
+                  host = "temporal-postgresql"; # internal Postgres
+                  port = 5432;
+                  database = "temporal_visibility";
+                  user = "_USERNAME_";
+                  password = "_PASSWORD_";
+                  # for production use an existing secret instead of `password`
+                  # existingSecret = "temporal-visibility-store";
+                  maxConns = 20;
+                  maxIdleConns = 20;
+                  maxConnLifetime = "1h";
+                  # tls = {
+                  #   enabled = true;
+                  #   enableHostVerification = true;
+                  #   serverName = "temporal-postgresql";
+                  #   caFile = "/path/to/certs/<CA-file>";
+                  #   certFile = "/path/to/certs/<client-cert-file>";
+                  #   keyFile = "/path/to/certs/<client-key-file>";
+                  # };
+                };
+              };
+            };
+          };
         };
         cassandra = {
-          config = {
-            cluster_size = 1;
+          enabled = false;
+        };
+        mysql = {
+          enabled = false;
+        };
+        postgresql = {
+          enabled = true;
+
+          # Fix the service name so we can reference it from server.config.persistence.sql.host
+          fullnameOverride = "temporal-postgresql";
+
+          # Auth must match the credentials used above
+          auth = {
+            username = "_USERNAME_";
+            password = "_PASSWORD_";
+            database = "temporal";
+          };
+
+          # Create the visibility database alongside the main one
+          primary = {
+            initdb = {
+              scripts = {
+                createVisibilityDB = ''
+                  CREATE DATABASE temporal_visibility;
+                '';
+              };
+            };
           };
         };
         elasticsearch = {
-          enabled = true;
-          replicas = 1;
-          esJavaOpts = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
-          # Cover charts that read extraEnvs
-          extraEnvs = [
-            {
-              name = "ES_JAVA_OPTS";
-              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
-            }
-            {
-              name = "JAVA_TOOL_OPTIONS";
-              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
-            }
-          ];
-          # Cover charts that read extraEnvVars (Bitnami)
-          extraEnvVars = [
-            {
-              name = "ES_JAVA_OPTS";
-              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
-            }
-            {
-              name = "JAVA_TOOL_OPTIONS";
-              value = "-Dlog4j2.disable.jmx=true -XX:-UseContainerSupport";
-            }
-          ];
+          enabled = false;
         };
         prometheus = {
-          enabled = false;
+          enabled = true;
         };
         grafana = {
-          enabled = false;
+          enabled = true;
+        };
+        schema = {
+          createDatabase = {
+            enabled = true;
+          };
+          setup = {
+            enabled = false;
+          };
+          update = {
+            enabled = false;
+          };
         };
 
       };

@@ -1,9 +1,4 @@
 { lib, ... }:
-let
-  starrocksConf = builtins.readFile /home/alejg/projects/nixidy/jobs/seatunnel/starrocks/job.conf;
-  # confHash = builtins.hashString "sha256" starrocksConf;
-in
-
 # let
 #   stackgres-crd = builtins.fetchurl {
 #     url = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/stackgres-operator/crds/";
@@ -25,6 +20,7 @@ in
     namespace = "stackgres";
     createNamespace = true;
     yamls = [
+
       ''
         apiVersion: v1
         kind: Service

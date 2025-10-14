@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 519ff533923265f6acc7a9882ac2a04aab4ac5ebdb5600a818c8be8f94ac85bc
+        checksum/config: ba2f462519701078f84b7f82a6c3c3bf687dc430af042fa9c110120ebcf01943
         prometheus.io/job: temporal-frontend
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
@@ -79,46 +79,6 @@ spec:
               subPath: config_template.yaml
             - mountPath: /etc/temporal/dynamic_config
               name: dynamic-config
-      initContainers:
-        - command:
-            - sh
-            - -c
-            - until cqlsh temporalio-cassandra.temporal 9042 -e "SHOW VERSION"; do echo waiting for cassandra to start; sleep 1; done;
-          image: cassandra:3.11.3
-          imagePullPolicy: IfNotPresent
-          name: check-cassandra
-        - command:
-            - sh
-            - -c
-            - until cqlsh temporalio-cassandra.temporal 9042 -e "SELECT keyspace_name FROM system_schema.keyspaces" | grep temporal$; do echo waiting for default keyspace to become ready; sleep 1; done;
-          image: cassandra:3.11.3
-          imagePullPolicy: IfNotPresent
-          name: check-cassandra-temporal-schema
-        - command:
-            - sh
-            - -c
-            - until curl --silent --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1 > /dev/null; do echo waiting for elasticsearch index to become ready; sleep 1; done;
-          env:
-            - name: ES_SCHEME
-              value: http
-            - name: ES_HOST
-              value: elasticsearch-master-headless
-            - name: ES_PORT
-              value: "9200"
-            - name: ES_USER
-              value: ""
-            - name: ES_PWD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: temporalio-visibility-store
-            - name: ES_VERSION
-              value: v7
-            - name: ES_VISIBILITY_INDEX
-              value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.29
-          imagePullPolicy: IfNotPresent
-          name: check-elasticsearch-index
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
