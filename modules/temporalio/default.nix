@@ -132,10 +132,10 @@
           enabled = false;
         };
         prometheus = {
-          enabled = true;
+          enabled = false;
         };
         grafana = {
-          enabled = true;
+          enabled = false;
         };
         schema = {
           createDatabase = {
