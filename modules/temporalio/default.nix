@@ -70,8 +70,8 @@
         };
         elasticsearch = {
           enabled = true;
-          imageTag = "8.19.5";
-          # imageTag = "7.17.29";
+          # imageTag = "8.19.5";
+          imageTag = "7.17.29";
           # 7.17.3
           # external = true;
           # host = "elasticsearch-master-headless";

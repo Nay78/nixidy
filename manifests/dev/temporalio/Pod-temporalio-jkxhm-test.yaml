@@ -4,7 +4,7 @@ metadata:
   annotations:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded
-  name: temporalio-bmxka-test
+  name: temporalio-jkxhm-test
   namespace: temporal
 spec:
   containers:
@@ -14,9 +14,9 @@ spec:
         - |
           #!/usr/bin/env bash -e
           curl -XGET --fail 'elasticsearch-master:9200/_cluster/health?wait_for_status=green&timeout=1s'
-      image: docker.elastic.co/elasticsearch/elasticsearch:8.19.5
+      image: docker.elastic.co/elasticsearch/elasticsearch:7.17.29
       imagePullPolicy: IfNotPresent
-      name: temporalio-bvumi-test
+      name: temporalio-kggjt-test
   restartPolicy: Never
   securityContext:
     fsGroup: 1000

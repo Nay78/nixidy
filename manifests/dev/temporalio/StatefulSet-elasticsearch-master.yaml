@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   annotations:
-    esMajorVersion: "8"
+    esMajorVersion: "7"
   labels:
     app: elasticsearch-master
     chart: elasticsearch
@@ -62,7 +62,7 @@ spec:
               value: "true"
             - name: node.remote_cluster_client
               value: "true"
-          image: docker.elastic.co/elasticsearch/elasticsearch:8.19.5
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.17.29
           imagePullPolicy: IfNotPresent
           name: elasticsearch
           ports:
@@ -112,7 +112,7 @@ spec:
                     # ready if HTTP code 200, 503 is tolerable if ES version is 6.x
                     if [[ ${HTTP_CODE} == "200" ]]; then
                       exit 0
-                    elif [[ ${HTTP_CODE} == "503" && "8" == "6" ]]; then
+                    elif [[ ${HTTP_CODE} == "503" && "7" == "6" ]]; then
                       exit 0
                     else
                       echo "curl --output /dev/null -k -XGET -s -w '%{http_code}' \${BASIC_AUTH} http://127.0.0.1:9200/ failed with HTTP code ${HTTP_CODE}"
@@ -153,7 +153,7 @@ spec:
             - sysctl
             - -w
             - vm.max_map_count=262144
-          image: docker.elastic.co/elasticsearch/elasticsearch:8.19.5
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.17.29
           imagePullPolicy: IfNotPresent
           name: configure-sysctl
           resources: {}
