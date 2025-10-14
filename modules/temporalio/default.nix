@@ -65,21 +65,17 @@
         web = {
           additionalEnv = [
             # {
-            #   name = "TEMPORAL_UI__TEMPORAL__ADDRESS";
-            #   value = "temporalio-frontend.temporal.svc:7233";
+            #   name = "TEMPORAL_CORS_ORIGINS";
+            #   value = "http://temporal-ui:8080";
             # }
-            {
-              name = "TEMPORAL_CORS_ORIGINS";
-              value = "http://temporal-ui:8080";
-            }
             {
               name = "TEMPORAL_UI_PORT";
               value = "8080";
             }
-            # {
-            #   name = "TEMPORAL_CSRF_COOKIE_INSECURE";
-            #   value = "true";
-            # }
+            {
+              name = "TEMPORAL_CSRF_COOKIE_INSECURE";
+              value = "true";
+            }
           ];
         };
         schema = {
