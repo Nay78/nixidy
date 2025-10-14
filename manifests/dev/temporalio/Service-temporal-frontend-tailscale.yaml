@@ -11,6 +11,14 @@ spec:
       port: 7233
       protocol: TCP
       targetPort: 7233
+    - name: x
+      port: 8233
+      protocol: TCP
+      targetPort: 8233
+    - name: ui
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
   selector:
     app.kubernetes.io/component: frontend
     app.kubernetes.io/instance: temporalio

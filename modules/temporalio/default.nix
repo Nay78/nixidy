@@ -22,10 +22,15 @@
               protocol: TCP
               port: 7233
               targetPort: 7233
-            - name: grpc
+            - name: x
               protocol: TCP
               port: 8233
               targetPort: 8233
+            - name: ui
+              protocol: TCP
+              port: 8080
+              targetPort: 8080
+
       ''
       # ''
       #   apiVersion: v1
