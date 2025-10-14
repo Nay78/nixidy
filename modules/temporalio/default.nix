@@ -65,13 +65,26 @@
         web = {
           additionalEnv = [
             # {
+            #   name = "TEMPORAL_UI__TEMPORAL__ADDRESS";
+            #   value = "temporalio-frontend.temporal.svc:7233";
+            # }
+            # {
+            #   name = "TEMPORAL_UI__CORS__ALLOWED_ORIGINS";
+            #   value = ''["http://localhost:3000","http://temporal-ui.taila1b08a.ts.net:8080"]'';
+            # }
+            {
+              name = "TEMPORAL_UI__CSRF__COOKIE_INSECURE";
+              value = "true";
+            }
+
+            # {
             #   name = "TEMPORAL_CORS_ORIGINS";
             #   value = "temporal-ui:8080";
             # }
-            {
-              name = "TEMPORAL_CSRF_COOKIE_INSECURE";
-              value = "true";
-            }
+            # {
+            #   name = "TEMPORAL_CSRF_COOKIE_INSECURE";
+            #   value = "true";
+            # }
           ];
         };
         schema = {
