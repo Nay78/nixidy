@@ -4,51 +4,7 @@
     namespace = "temporal";
     createNamespace = true;
     yamls = [
-      ''
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: temporal-frontend-tailscale
-          namespace: temporal
-          annotations:
-            tailscale.com/expose: "true"
-        spec:
-          selector:
-            app.kubernetes.io/instance: temporalio
-            app.kubernetes.io/name: temporal
-            app.kubernetes.io/component: frontend
-          ports:
-            - name: grpc
-              protocol: TCP
-              port: 7233
-              targetPort: 7233
-            - name: x
-              protocol: TCP
-              port: 8233
-              targetPort: 8233
-            - name: ui
-              protocol: TCP
-              port: 8080
-              targetPort: 8080
-
-      ''
-      # ''
-      #   apiVersion: v1
-      #   kind: Service
-      #   metadata:
-      #     name: temporalio
-      #     namespace: temporalio
-      #     annotations:
-      #       tailscale.com/expose: "true"
-      #   spec:
-      #     selector:
-      #       app: temporalio
-      #     ports:
-      #       - protocol: TCP
-      #         port: 8233
-      #         targetPort: 8233
-      # ''
-      #
+      (builtins.readFile ./tailscale.yaml)
     ];
 
     # helm install \

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    tailscale.com/tags: tag:k8s
+  name: temporal-tailscale
+  namespace: temporal
+spec:
+  ingressClassName: tailscale
+  rules:
+    - host: temporal-ui
+      http:
+        paths:
+          - backend:
+              service:
+                name: temporal-web
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+    - host: temporal-grpc
+      http:
+        paths:
+          - backend:
+              service:
+                name: temporal-frontend
+                port:
+                  number: 7233
+            path: /
+            pathType: Prefix
