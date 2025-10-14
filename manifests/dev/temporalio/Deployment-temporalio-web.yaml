@@ -33,7 +33,9 @@ spec:
         - env:
             - name: TEMPORAL_ADDRESS
               value: temporalio-frontend.temporal.svc:7233
-            - name: TEMPORAL_UI__CSRF__COOKIE_INSECURE
+            - name: TEMPORAL_UI_PORT
+              value: "7233"
+            - name: TEMPORAL_CSRF_COOKIE_INSECURE
               value: "true"
           image: temporalio/ui:2.40.1
           imagePullPolicy: IfNotPresent
