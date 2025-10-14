@@ -41,6 +41,8 @@
         chartHash = "sha256-8VgcvZqJS/jts2TJJjaj6V4BRDy56phyd0gwPs0bhnI=";
       };
       values = {
+        # TODO: make this command declarative
+        # helm template cnpg cnpg/cloudnative-pg --version 0.26.0 --include-crds | kubectl apply -f -
         # instances = 3;
         #
         # storage = {
