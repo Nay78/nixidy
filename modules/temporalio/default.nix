@@ -62,6 +62,14 @@
         grafana = {
           enabled = false;
         };
+        web = {
+          env = [
+            {
+              name = "TEMPORAL_CORS_ORIGINS";
+              value = "http://temporal-ui:8080,http://temporal-ui.taila1b08a.ts.net:8080";
+            }
+          ];
+        };
         schema = {
           createDatabase = {
             enabled = true;

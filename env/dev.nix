@@ -40,7 +40,7 @@
   imports = [
     # ../modules/stackgres/default.nix
     # ../modules/cloudnativepg/default.nix
-    ../modules/starrocks/default.nix
+    ../modules/starrocks
     ../modules/temporalio/default.nix
     # ../modules/seatunnel/default.nix
 
