@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: d7d79eea6b173723d0d5019544f12b57db2ff27d2982802f6a6c178b94b7219a
+        checksum/config: cf370bfc24fbdc19d73ac89b234ea75cdb597e26582422e44c413dc2e524eabd
         prometheus.io/job: temporal-worker
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
@@ -103,7 +103,7 @@ spec:
                   key: password
                   name: temporalio-visibility-store
             - name: ES_VERSION
-              value: v8
+              value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
           image: temporalio/admin-tools:1.29

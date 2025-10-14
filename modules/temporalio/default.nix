@@ -70,12 +70,13 @@
         };
         elasticsearch = {
           enabled = true;
+          imageTag = "8.19.5";
           # external = true;
-          host = "elasticsearch-master-headless";
-          port = "9200";
-          version = "v8";
-          scheme = "http";
-          logLevel = "error";
+          # host = "elasticsearch-master-headless";
+          # port = "9200";
+          # version = "v8";
+          # scheme = "http";
+          # logLevel = "error";
         };
         prometheus = {
           enabled = false;

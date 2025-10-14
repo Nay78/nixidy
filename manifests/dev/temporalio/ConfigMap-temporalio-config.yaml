@@ -24,7 +24,7 @@ data:
             user: user
         visibility:
           elasticsearch:
-            version: "v8"
+            version: "v7"
             url:
                 scheme: "http"
                 host: "elasticsearch-master-headless:9200"

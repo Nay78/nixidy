@@ -60,7 +60,7 @@ spec:
                   key: password
                   name: temporalio-visibility-store
             - name: ES_VERSION
-              value: v8
+              value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
           image: temporalio/admin-tools:1.29
@@ -132,7 +132,7 @@ spec:
                   key: password
                   name: temporalio-visibility-store
             - name: ES_VERSION
-              value: v8
+              value: v7
             - name: ES_VISIBILITY_INDEX
               value: temporal_visibility_v1_dev
           image: temporalio/admin-tools:1.29
