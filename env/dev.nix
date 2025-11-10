@@ -39,7 +39,7 @@
 
   imports = [
     ../modules/starrocks
-    ../modules/stackgres
+    # ../modules/stackgres
     ../modules/temporalio/default.nix
     # ../modules/seatunnel/default.nix
 

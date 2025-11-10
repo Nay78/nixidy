@@ -14,7 +14,7 @@
   # --set-string adminui.service.type=LoadBalancer https://stackgres.io/downloads/stackgres-k8s/stackgres/latest/helm/stackgres-operator.tgz
   nixidy.applicationImports = [
     # ../../generated/stackgres.nix
-    ./generated.nix
+    # ./generated.nix
   ];
   applications.stackgres = {
     namespace = "stackgres";
