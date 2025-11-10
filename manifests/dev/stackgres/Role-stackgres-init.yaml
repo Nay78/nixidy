@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade,post-install,post-upgrade,post-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm.sh/hook-weight: "-100"
+  name: stackgres-init
+  namespace: stackgres
+rules:
+  - apiGroups:
+      - stackgres.io
+    resources:
+      - sgconfigs
+    verbs:
+      - create
+  - apiGroups:
+      - stackgres.io
+    resourceNames:
+      - stackgres
+    resources:
+      - sgconfigs
+    verbs:
+      - get
+      - update
+      - patch
+      - delete

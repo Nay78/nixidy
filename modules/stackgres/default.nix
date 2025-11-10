@@ -45,9 +45,9 @@
       chart = lib.helm.downloadHelmChart {
         repo = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/";
         chart = "stackgres-operator";
-        version = "1.17.2";
+        version = "1.17.4";
         # version = "1.3.2";
-        chartHash = "sha256-Y9LAvUwQsFCsqcGpv4g1vZYOZGfgpUykQ8H3Ez22zOQ=";
+        chartHash = "sha256-AYww0r1vAvTIe3SAdO7Q17iqJNFGX9zx0Sd93bcmmRQ=";
         # chartHash = "sha256-1JGlhcAWGtssal7Pixqx8XOIVmPs0FAFIRbOOwEPlgQ=";
 
       };

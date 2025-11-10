@@ -38,9 +38,8 @@
   # };
 
   imports = [
-    # ../modules/stackgres/default.nix
-    # ../modules/cloudnativepg/default.nix
     ../modules/starrocks
+    ../modules/stackgres
     ../modules/temporalio/default.nix
     # ../modules/seatunnel/default.nix
 
