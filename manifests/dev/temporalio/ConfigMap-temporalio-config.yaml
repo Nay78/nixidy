@@ -23,16 +23,6 @@ data:
             replicationFactor: 1
             user: user
         visibility:
-          elasticsearch:
-            version: "v7"
-            url:
-                scheme: "http"
-                host: "elasticsearch-master-headless:9200"
-            username: "elastic"
-            password: {{ .Env.TEMPORAL_VISIBILITY_STORE_PASSWORD  | quote }}
-            logLevel: "error"
-            indices:
-                visibility: "temporal_visibility_v1_dev"
 
     global:
       membership:

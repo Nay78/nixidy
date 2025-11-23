@@ -42,31 +42,6 @@ spec:
           imagePullPolicy: IfNotPresent
           name: check-cassandra
         - command:
-            - sh
-            - -c
-            - until curl --silent --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT 2>&1 > /dev/null; do echo waiting for elasticsearch to start; sleep 1; done;
-          env:
-            - name: ES_SCHEME
-              value: http
-            - name: ES_HOST
-              value: elasticsearch-master-headless
-            - name: ES_PORT
-              value: "9200"
-            - name: ES_USER
-              value: elastic
-            - name: ES_PWD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: temporalio-visibility-store
-            - name: ES_VERSION
-              value: v7
-            - name: ES_VISIBILITY_INDEX
-              value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.29
-          imagePullPolicy: IfNotPresent
-          name: check-elasticsearch
-        - command:
             - temporal-cassandra-tool
             - create
             - -k
@@ -92,6 +67,30 @@ spec:
           name: create-default-store
         - command:
             - temporal-cassandra-tool
+            - create
+            - -k
+            - temporal_visibility
+            - --replication-factor
+            - "1"
+          env:
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
+              value: temporal_visibility
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: temporalio-visibility-store
+          image: temporalio/admin-tools:1.29
+          imagePullPolicy: IfNotPresent
+          name: create-visibility-store
+        - command:
+            - temporal-cassandra-tool
             - setup-schema
             - -v
             - "0.0"
@@ -112,29 +111,25 @@ spec:
           image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: setup-default-store
-        - args:
-            - 'curl -X PUT --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/_template/temporal_visibility_v1_template -H "Content-Type: application/json" --data-binary "@schema/elasticsearch/visibility/index_template_$ES_VERSION.json" 2>&1 && curl --head --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1 || curl -X PUT --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1'
-          command:
-            - sh
-            - -c
+        - command:
+            - temporal-cassandra-tool
+            - setup-schema
+            - -v
+            - "0.0"
           env:
-            - name: ES_SCHEME
-              value: http
-            - name: ES_HOST
-              value: elasticsearch-master-headless
-            - name: ES_PORT
-              value: "9200"
-            - name: ES_USER
-              value: elastic
-            - name: ES_PWD
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
+              value: temporal_visibility
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: password
                   name: temporalio-visibility-store
-            - name: ES_VERSION
-              value: v7
-            - name: ES_VISIBILITY_INDEX
-              value: temporal_visibility_v1_dev
           image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: setup-visibility-store
@@ -160,6 +155,28 @@ spec:
           image: temporalio/admin-tools:1.29
           imagePullPolicy: IfNotPresent
           name: update-default-store
+        - command:
+            - temporal-cassandra-tool
+            - update-schema
+            - --schema-dir
+            - /etc/temporal/schema/cassandra/visibility/versioned
+          env:
+            - name: CASSANDRA_HOST
+              value: temporalio-cassandra.temporal
+            - name: CASSANDRA_PORT
+              value: "9042"
+            - name: CASSANDRA_KEYSPACE
+              value: temporal_visibility
+            - name: CASSANDRA_USER
+              value: user
+            - name: CASSANDRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: temporalio-visibility-store
+          image: temporalio/admin-tools:1.29
+          imagePullPolicy: IfNotPresent
+          name: update-visibility-store
       restartPolicy: OnFailure
       serviceAccountName: default
   ttlSecondsAfterFinished: 86400

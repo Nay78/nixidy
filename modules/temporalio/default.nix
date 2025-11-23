@@ -43,7 +43,7 @@
         };
         elasticsearch = {
 
-          # enabled = true;
+          enabled = false;
           replicaCount = 1;
           replicas = 1;
           # imageTag = "8.19.5";

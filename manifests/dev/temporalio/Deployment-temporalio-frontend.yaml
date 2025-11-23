@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 1d8d2722d1e5ff21daea696e44a1dd653d22be189c8072770f16d3e8398b0654
+        checksum/config: 8fdc7e37189bece577f0b4470eb8ecd97dbfe76586590f192b4ca298767bcbef
         prometheus.io/job: temporal-frontend
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"
@@ -94,31 +94,6 @@ spec:
           image: cassandra:3.11.3
           imagePullPolicy: IfNotPresent
           name: check-cassandra-temporal-schema
-        - command:
-            - sh
-            - -c
-            - until curl --silent --fail --user "$ES_USER:$ES_PWD" $ES_SCHEME://$ES_HOST:$ES_PORT/$ES_VISIBILITY_INDEX 2>&1 > /dev/null; do echo waiting for elasticsearch index to become ready; sleep 1; done;
-          env:
-            - name: ES_SCHEME
-              value: http
-            - name: ES_HOST
-              value: elasticsearch-master-headless
-            - name: ES_PORT
-              value: "9200"
-            - name: ES_USER
-              value: elastic
-            - name: ES_PWD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: temporalio-visibility-store
-            - name: ES_VERSION
-              value: v7
-            - name: ES_VISIBILITY_INDEX
-              value: temporal_visibility_v1_dev
-          image: temporalio/admin-tools:1.29
-          imagePullPolicy: IfNotPresent
-          name: check-elasticsearch-index
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
