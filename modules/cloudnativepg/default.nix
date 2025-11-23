@@ -1,4 +1,8 @@
-{ charts, lib, ... }:
+{
+  charts,
+  lib,
+  ...
+}:
 
 {
   #   helm repo add cnpg https://cloudnative-pg.github.io/charts
@@ -11,6 +15,7 @@
     namespace = "cnpg";
     createNamespace = true;
     yamls = [
+      (builtins.readFile ./cnpg-crds.yaml)
       ''
         apiVersion: v1
         kind: Service
@@ -39,7 +44,9 @@
         chart = "cloudnative-pg";
         version = "0.26.1";
         chartHash = "sha256-9x9oX8u2MqwC/ccmpqLE97z2PxFKu3Z5uZ+Nd/8187c=";
+
       };
+      # includeCRDs = false;
       values = {
         # TODO: make this command declarative
         # helm template cnpg cnpg/cloudnative-pg --version 0.26.0 --include-crds | kubectl apply -f -
