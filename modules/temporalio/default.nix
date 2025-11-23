@@ -75,6 +75,9 @@
           postgresqlUsername = "temporal";
           postgresqlPassword = "temporal";
         };
+
+        elasticsearch.enable = false;
+
         prometheus = {
           enabled = false;
         };
