@@ -29,6 +29,7 @@
 
       values = {
         server = {
+          replicaCount = 1;
           persistence = {
             default = "cassandra";
             visibilityStore = "cassandra";
@@ -53,12 +54,6 @@
           };
         };
 
-        server = {
-          replicaCount = 1;
-          # persistence = {
-          #   default = "cassandra";
-          # };
-        };
         cassandra = {
           enabled = true;
           config = {
@@ -69,19 +64,19 @@
         elasticsearch = {
 
           enabled = false;
-          replicaCount = 1;
-          replicas = 1;
-          # imageTag = "8.19.5";
-          imageTag = "7.17.29";
-          # 7.17.3
-          # external = true;
-          host = "elasticsearch-master-headless";
-          port = "9200";
-          version = "v7";
-          scheme = "http";
-          logLevel = "error";
-          username = "elastic";
-          password = "elasticsearch";
+          # replicaCount = 1;
+          # replicas = 1;
+          # # imageTag = "8.19.5";
+          # imageTag = "7.17.29";
+          # # 7.17.3
+          # # external = true;
+          # host = "elasticsearch-master-headless";
+          # port = "9200";
+          # version = "v7";
+          # scheme = "http";
+          # logLevel = "error";
+          # username = "elastic";
+          # password = "elasticsearch";
 
         };
         prometheus = {
