@@ -36,7 +36,8 @@
                 driver = "sql";
                 sql = {
                   driver = "postgres12";
-                  host = "temporal-postgresql";
+                  # host = "temporal-postgresql";
+                  host = "mini";
                   port = 5432;
                   database = "temporal";
                   user = "temporal";
@@ -50,7 +51,8 @@
                 driver = "sql";
                 sql = {
                   driver = "postgres12";
-                  host = "temporal-postgresql";
+                  # host = "temporal-postgresql";
+                  host = "mini";
                   port = 5432;
                   database = "temporal_visibility";
                   user = "temporal";

@@ -21,7 +21,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 729e9bef61fe8a5020d944739b609200eb7c84af7010277958e65b21bebcd00f
+        checksum/config: 517ff1e6b1099d1c0a497e20b55ef5187bd6eb145efac4d6aadd4624ca6f4471
         prometheus.io/job: temporal-history
         prometheus.io/port: "9090"
         prometheus.io/scrape: "true"

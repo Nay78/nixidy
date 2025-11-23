@@ -66,7 +66,7 @@ spec:
             - name: SQL_PLUGIN
               value: postgres12
             - name: SQL_HOST
-              value: temporal-postgresql
+              value: mini
             - name: SQL_PORT
               value: "5432"
             - name: SQL_DATABASE
@@ -90,7 +90,7 @@ spec:
             - name: SQL_PLUGIN
               value: postgres12
             - name: SQL_HOST
-              value: temporal-postgresql
+              value: mini
             - name: SQL_PORT
               value: "5432"
             - name: SQL_DATABASE
@@ -140,7 +140,7 @@ spec:
             - name: SQL_PLUGIN
               value: postgres12
             - name: SQL_HOST
-              value: temporal-postgresql
+              value: mini
             - name: SQL_PORT
               value: "5432"
             - name: SQL_DATABASE
