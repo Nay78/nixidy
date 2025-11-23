@@ -39,8 +39,8 @@
 
   imports = [
     ../modules/starrocks
-    # ../modules/stackgres
-    ../modules/temporalio/default.nix
+    ../modules/stackgres
+    ../modules/temporalio
     # ../modules/seatunnel/default.nix
 
     # ../modules/flink/default.nix
@@ -58,7 +58,6 @@
     # ./druid.nix
     # ./airflow.nix
     ./tailscale.nix
-    # ./stackgres/stackgres.nix
     # ./db/cloud-native-pg.nix
 
   ];

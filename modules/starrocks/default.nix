@@ -2,7 +2,7 @@
 let
   starrocksCRD = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/StarRocks/starrocks-kubernetes-operator/main/deploy/starrocks.com_starrocksclusters.yaml";
-    sha256 = "sha256:0w951fmby5jharfhgv542k9hhbnxavnapwrz80h146fk2k5x4jjc"; # Replace with actual hash
+    sha256 = "sha256:0p34cprcyr8wgsh2n0glwkzrg1v7g39hbjxbglgqw8cjj9mnykbv"; # Replace with actual hash
   };
 in
 
@@ -40,8 +40,8 @@ in
       chart = lib.helm.downloadHelmChart {
         repo = "https://starrocks.github.io/starrocks-kubernetes-operator";
         chart = "kube-starrocks";
-        version = "1.11.2";
-        chartHash = "sha256-u8Sz6LXInhpP7/0xLb8iaRPutb8F4OxibV/wsJAEdYw=";
+        version = "1.11.3";
+        chartHash = "sha256-Nf2NCwv2v2d7BVR7gQFzlaMxPptgiKTekFrRd02epRo=";
       };
       includeCRDs = true;
 

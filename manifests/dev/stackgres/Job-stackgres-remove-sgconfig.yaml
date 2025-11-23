@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    helm.sh/hook: post-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm.sh/hook-weight: "10"
+  labels:
+    app: stackgres-operator-init
+    job: remove-sgconfig
+  name: stackgres-remove-sgconfig
+  namespace: stackgres
+spec:
+  template:
+    metadata:
+      labels:
+        app: stackgres-operator-init
+        job: remove-sgconfig
+    spec:
+      containers:
+        - command:
+            - /bin/bash
+            - -ecx
+            - |
+              kubectl delete sgconfig --ignore-not-found -n "stackgres" "stackgres"
+          image: quay.io/ongres/kubectl:v1.31.3-build-6.38
+          imagePullPolicy: IfNotPresent
+          name: remove-sgconfig
+      restartPolicy: OnFailure
+      serviceAccountName: stackgres-init
+      terminationGracePeriodSeconds: 0
+  ttlSecondsAfterFinished: 3600
