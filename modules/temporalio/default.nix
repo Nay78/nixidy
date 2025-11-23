@@ -30,24 +30,34 @@
       values = {
         server = {
           replicaCount = 1;
-          persistence = {
-            default = "cassandra";
-            visibilityStore = "cassandra";
-            datastores = {
-              cassandra = {
-                cassandra = {
-                  hosts = "cassandra";
-                  port = 9042;
-                  user = "cassandra";
-                  password = "cassandra";
+          config = {
+            persistence = {
+              default = {
+                driver = "sql";
+                sql = {
+                  driver = "postgres12";
+                  host = "temporal-postgresql";
+                  port = 5432;
+                  database = "temporal";
+                  user = "temporal";
+                  password = "temporal";
+                  maxConns = 20;
+                  maxIdleConns = 20;
+                  maxConnLifetime = "1h";
                 };
               };
               visibility = {
-                cassandra = {
-                  hosts = "cassandra";
-                  port = 9042;
-                  user = "cassandra";
-                  password = "cassandra";
+                driver = "sql";
+                sql = {
+                  driver = "postgres12";
+                  host = "temporal-postgresql";
+                  port = 5432;
+                  database = "temporal_visibility";
+                  user = "temporal";
+                  password = "temporal";
+                  maxConns = 20;
+                  maxIdleConns = 20;
+                  maxConnLifetime = "1h";
                 };
               };
             };
@@ -55,29 +65,15 @@
         };
 
         cassandra = {
-          enabled = true;
-          config = {
-            cluster_size = 1;
-          };
-
-        };
-        elasticsearch = {
-
           enabled = false;
-          # replicaCount = 1;
-          # replicas = 1;
-          # # imageTag = "8.19.5";
-          # imageTag = "7.17.29";
-          # # 7.17.3
-          # # external = true;
-          # host = "elasticsearch-master-headless";
-          # port = "9200";
-          # version = "v7";
-          # scheme = "http";
-          # logLevel = "error";
-          # username = "elastic";
-          # password = "elasticsearch";
+        };
+        postgresql = {
+          enabled = true;
 
+          fullnameOverride = "temporal-postgresql";
+          postgresqlDatabase = "temporal";
+          postgresqlUsername = "temporal";
+          postgresqlPassword = "temporal";
         };
         prometheus = {
           enabled = false;
