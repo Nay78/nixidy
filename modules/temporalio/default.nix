@@ -30,6 +30,9 @@
       values = {
         server = {
           replicaCount = 1;
+          persistence = {
+            default = "cassandra";
+          };
         };
         cassandra = {
           enabled = true;
@@ -40,7 +43,7 @@
         };
         elasticsearch = {
 
-          enabled = true;
+          # enabled = true;
           replicaCount = 1;
           replicas = 1;
           # imageTag = "8.19.5";
