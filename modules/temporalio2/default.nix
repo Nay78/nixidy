@@ -29,35 +29,10 @@
 
       values = {
         server = {
+          replicaCount = 1;
           persistence = {
             default = "cassandra";
-            visibilityStore = "cassandra";
-            datastores = {
-              cassandra = {
-                cassandra = {
-                  hosts = "cassandra";
-                  port = 9042;
-                  user = "cassandra";
-                  password = "cassandra";
-                };
-              };
-              visibility = {
-                cassandra = {
-                  hosts = "cassandra";
-                  port = 9042;
-                  user = "cassandra";
-                  password = "cassandra";
-                };
-              };
-            };
           };
-        };
-
-        server = {
-          replicaCount = 1;
-          # persistence = {
-          #   default = "cassandra";
-          # };
         };
         cassandra = {
           enabled = true;
