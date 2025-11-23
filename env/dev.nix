@@ -39,15 +39,16 @@
 
   imports = [
     ../modules/starrocks
-    ../modules/stackgres
+    # ../modules/stackgres
     ../modules/temporalio
+    ../modules/cloudnativepg
+    ./superset.nix
     # ../modules/seatunnel/default.nix
 
     # ../modules/flink/default.nix
     # ../modules/cert-manager/default.nix
     # ../modules/starrocks/default.nix
 
-    ./superset.nix
     # ./metallb.nix
     # ./metallb-bitnami.nix
     # ./n8n.nix

@@ -1,16 +1,16 @@
 { lib, ... }:
-# let
-#   stackgres-crd = builtins.fetchurl {
-#     url = "https://stackgres.io/downloads/stackgres-k8s/stackgres/helm/stackgres-operator/crds/";
-#     sha256 = "";
-#   };
-# in
+let
+  stackgres-crd = builtins.fetchurl {
+    url = "https://github.com/ongres/stackgres/tree/main/stackgres-k8s/src/common/src/main/resources/crds";
+    sha256 = "sha256:1mhks2g436jwfdi4fw037hmxkhhn3q4a9gsaixamz1f3hsx95acp";
+  };
+in
 {
-  # applications.k8s-gw-api-crds = {
-  #   yamls = [
-  #     (builtins.readFile stackgres-crd)
-  #   ];
-  # };
+  applications.k8s-gw-api-crds = {
+    yamls = [
+      (builtins.readFile stackgres-crd)
+    ];
+  };
   # --set-string adminui.service.type=LoadBalancer https://stackgres.io/downloads/stackgres-k8s/stackgres/latest/helm/stackgres-operator.tgz
   nixidy.applicationImports = [
     # ../../generated/stackgres.nix

@@ -95,7 +95,7 @@
               src = pkgs.fetchFromGitHub {
                 owner = "ongres";
                 repo = "stackgres";
-                rev = "1.17.2";
+                rev = "1.17.3";
                 hash = "sha256-87zTaHXpNMp7zMHEGrEIq41XpIAK0uu25SX4f2jOswM=";
               };
               crds = [
@@ -111,7 +111,7 @@
                 "stackgres-k8s/src/common/src/main/resources/crds/SGShardedDbOps.yaml"
                 "stackgres-k8s/src/common/src/main/resources/crds/SGStream.yaml"
 
-                # "stackgres-k8s/src/common/src/main/resources/crds/SGCluster.yaml"
+                "stackgres-k8s/src/common/src/main/resources/crds/SGCluster.yaml"
                 # "stackgres-k8s/src/common/src/main/resources/crds/SGPoolingConfig.yaml"
                 # "stackgres-k8s/src/common/src/main/resources/crds/SGShardedCluster.yaml"
               ];
