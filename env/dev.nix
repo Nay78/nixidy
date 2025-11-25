@@ -40,8 +40,8 @@
   imports = [
     ../modules/starrocks
     # ../modules/stackgres
-    ../modules/temporalio
-    ../modules/cloudnativepg
+    # ../modules/temporalio
+    # ../modules/cloudnativepg
     ./superset.nix
     # ../modules/seatunnel/default.nix
 
