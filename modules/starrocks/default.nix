@@ -27,7 +27,7 @@ in
             app: starrocks
           ports:
             - protocol: TCP
-              port: 80
+              port: 9030
               targetPort: 9030
 
       ''
@@ -37,6 +37,10 @@ in
     helm.releases.starrocks = {
       # Use `lib.helm.downloadHelmChart` to fetch
       # the Helm Chart to use.
+      # helm repo add starrocks https://starrocks.github.io/starrocks-kubernetes-operator
+      # helm repo update
+      # helm search repo starrocks/kube-starrocks --versions | head -n 20
+
       chart = lib.helm.downloadHelmChart {
         repo = "https://starrocks.github.io/starrocks-kubernetes-operator";
         chart = "kube-starrocks";
